@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIoT 데이터 분석 플랫폼</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --dark-bg-start: #0f172a;
+            --dark-bg-end: #1e293b;
+            --card-bg: rgba(30, 41, 59, 0.8);
+            --border-color: rgba(148, 163, 184, 0.2);
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --accent-cyan: #22d3ee;
+            --accent-green: #10b981;
+            --accent-purple: #a855f7;
+            --accent-red: #ef4444;
+            --accent-orange: #f59e0b;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg-start) 0%, var(--dark-bg-end) 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        
+        #initialLoadModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            text-align: center;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-content h2 {
+            margin-bottom: 1rem;
+        }
+
+        .modal-content p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .btn-load {
+            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-green) 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: none; /* Initially hidden */
+        }
+
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            width: 150px;
+            height: auto;
+            margin: 0 auto 1rem;
+            display: block;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-green) 50%, var(--accent-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+
+        .tab-button {
+            background: var(--card-bg);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button:hover {
+            background: rgba(30, 41, 59, 1);
+            border-color: var(--accent-cyan);
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-green) 100%);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 14px -1px rgba(34, 211, 238, 0.4);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .upload-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .upload-area {
+            border: 2px dashed #475569;
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        .upload-area:hover, .upload-area.drag-over {
+            border-color: var(--accent-cyan);
+            background: rgba(34, 211, 238, 0.1);
+        }
+
+        .upload-icon {
+            width: 120px;
+            height: auto;
+            margin: 0 auto 1.5rem;
+            display: block;
+        }
+
+        .upload-text { font-size: 1.1rem; color: var(--text-primary); margin-bottom: 0.5rem; }
+        .upload-hint { font-size: 0.9rem; color: #64748b; min-height: 1.2em; }
+        input[type="file"] { display: none; }
+
+        /* 통계 비교 테이블 */
+        .stats-comparison {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .comparison-header { font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem; }
+        .comparison-table { width: 100%; border-collapse: collapse; }
+        .comparison-table th, .comparison-table td {
+            padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid #475569;
+        }
+        .comparison-table th { color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.875rem; }
+        .stat-positive { color: var(--accent-red); }
+        .stat-negative { color: var(--accent-green); }
+        .stat-neutral { color: var(--text-secondary); }
+
+        .chart-container {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            height: 450px;
+            display: flex;
+            flex-direction: column;
+        }
+        .chart-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        /* 시뮬레이터 */
+        .simulator-container, .comparison-simulator { display: grid; gap: 2rem; }
+        .simulator-container { grid-template-columns: 30% 70%; }
+        .control-panel, .display-panel {
+             background: var(--card-bg); border-radius: 16px; padding: 2rem;
+        }
+        .dropdown-label { font-size: 0.875rem; color: var(--text-secondary); font-weight: 600; margin-bottom: 0.75rem; display: block; }
+        .dropdown { width: 100%; background: rgba(15, 23, 42, 0.8); color: var(--text-primary); border: 1px solid #475569; padding: 0.75rem 1rem; border-radius: 8px; font-size: 1rem; cursor: pointer; }
+        .temperature-display { border-radius: 12px; padding: 2rem; text-align: center; margin-top: 1rem; transition: background 0.5s ease;}
+        .temperature-label { font-size: 0.875rem; color: var(--text-secondary); font-weight: 600; }
+        .temperature-value { font-size: 3rem; font-weight: 700; transition: color 0.5s ease; }
+        .display-image { max-width: 100%; max-height: 500px; border-radius: 8px; cursor: pointer; transition: opacity 0.5s ease; }
+
+        /* 비교 모드 */
+        .comparison-mode-toggle { text-align: right; margin-bottom: 1rem; }
+        .btn-toggle { background: var(--accent-purple); color: white; border: none; padding: 0.5rem 1.5rem; border-radius: 8px; cursor: pointer; transition: all 0.3s; }
+        .btn-toggle:hover { opacity: 0.9; box-shadow: 0 0 15px rgba(168, 85, 247, 0.5); }
+        .comparison-simulator { grid-template-columns: 1fr auto 1fr; align-items: stretch; }
+        .comparison-panel { display: flex; flex-direction: column; }
+        .comparison-panel .control-panel { flex-grow: 1; }
+        .comparison-panel .temperature-display { padding: 1.5rem; }
+        .comparison-panel .temperature-value { font-size: 2.5rem; }
+        .comparison-divider { text-align: center; display: flex; flex-direction: column; justify-content: center; }
+        .comparison-stat-label { color: var(--text-secondary); font-size: 0.9rem; }
+        .comparison-stat-value { font-size: 2.5rem; font-weight: 700; color: var(--accent-orange); }
+
+        /* 이미지 갤러리 */
+        .image-gallery { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; display: none; align-items: center; justify-content: center; }
+        .gallery-overlay { position: absolute; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(10px); }
+        .gallery-content { position: relative; max-width: 80vw; max-height: 80vh; }
+        .gallery-image { max-width: 100%; max-height: 80vh; border-radius: 12px; }
+        .gallery-close, .gallery-nav { position: absolute; background: rgba(30, 41, 59, 0.8); color: white; border: 1px solid var(--accent-cyan); width: 50px; height: 50px; border-radius: 50%; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .gallery-close { top: -25px; right: -25px; }
+        .gallery-nav { top: 50%; transform: translateY(-50%); }
+        .gallery-prev { left: -70px; }
+        .gallery-next { right: -70px; }
+        .gallery-info { position: absolute; bottom: -80px; left: 50%; transform: translateX(-50%); background: var(--card-bg); padding: 1rem 2rem; border-radius: 8px; text-align: center; }
+        .gallery-title { font-size: 1.2rem; }
+        .gallery-temp { font-size: 1.5rem; font-weight: bold; color: var(--accent-cyan); }
+
+
+        #csvResults { display: none; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 1024px) {
+            .simulator-container { grid-template-columns: 1fr; }
+            .comparison-simulator { grid-template-columns: 1fr; gap: 1rem; }
+            .gallery-nav { display: none; } /* 모바일에서는 네비게이션 버튼 숨김 */
+        }
+    </style>
+</head>
+<body>
+    <div id="initialLoadModal">
+        <div class="modal-content">
+            <h2>기준 데이터 로드</h2>
+            <p>분석을 시작하려면 기준 데이터(basedata.csv)를 선택해주세요.</p>
+            <button class="btn-load" onclick="document.getElementById('baselineFileInput').click()">파일 선택</button>
+            <input type="file" id="baselineFileInput" accept=".csv" style="display:none;">
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_rmosk9rmosk9rmos-removebg-preview-QLrmtACEY8LajTXPwLnqUo6wAnnpE.png" alt="SIoT Logo" class="logo">
+            <h1>SIoT 데이터 분석 플랫폼</h1>
+            <p class="subtitle">Future Science High School - 도시 열섬 현상 연구</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab('csv')">CSV 데이터 분석</button>
+            <button class="tab-button" onclick="switchTab('simulator')">인터랙티브 시뮬레이터</button>
+        </div>
+
+        <!-- CSV 데이터 분석 탭 -->
+        <div id="csvTab" class="tab-content active">
+            <div class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_rmosk9rmosk9rmos-removebg-preview-QLrmtACEY8LajTXPwLnqUo6wAnnpE.png" alt="Upload Icon" class="upload-icon">
+                    <div class="upload-text">실험 데이터 CSV 파일을 드래그하거나 클릭하여 업로드</div>
+                    <div id="fileName" class="upload-hint">현재 선택된 파일 없음</div>
+                </div>
+                <input type="file" id="fileInput" accept=".csv">
+            </div>
+
+            <div id="csvResults">
+                <div id="statsComparison" class="stats-comparison" style="display:none;"></div>
+                <div id="chartsContainer"></div>
+            </div>
+        </div>
+
+        <!-- 인터랙티브 시뮬레이터 탭 -->
+        <div id="simulatorTab" class="tab-content">
+            <div class="comparison-mode-toggle">
+                <button class="btn-toggle" id="toggleModeBtn" onclick="toggleComparisonMode()">비교 모드 켜기</button>
+            </div>
+
+            <!-- 단일 모드 -->
+            <div id="singleSimulator" class="simulator-container">
+                <div class="control-panel">
+                     <div class="dropdown-section">
+                        <label class="dropdown-label">건축 외장재</label>
+                        <select class="dropdown" id="option1" onchange="updateSimulator()">
+                            <option value="벽돌">벽돌</option> <option value="대리석">대리석</option> <option value="유리">유리</option> <option value="징크패널">징크패널</option>
+                        </select>
+                    </div>
+                    <div class="dropdown-section">
+                        <label class="dropdown-label">도로 포장재</label>
+                        <select class="dropdown" id="option2" onchange="updateSimulator()">
+                            <option value="아스팔트(물)">아스팔트(물)</option> <option value="아스팔트(일반)">아스팔트(일반)</option> <option value="투수성 콘크리트">투수성 콘크리트</option>
+                        </select>
+                    </div>
+                    <div id="tempDisplay" class="temperature-display">
+                        <div class="temperature-label">예상 온도</div>
+                        <div class="temperature-value" id="temperatureValue">25.0°C</div>
+                    </div>
+                </div>
+                <div class="display-panel">
+                    <img id="displayImage" src="https://placehold.co/700x500/0f172a/94a3b8?text=Select+Options" alt="Simulation Display" class="display-image">
+                </div>
+            </div>
+
+            <!-- 비교 모드 -->
+            <div id="comparisonSimulator" class="comparison-simulator" style="display: none;">
+                <!-- Panel A -->
+                <div class="comparison-panel">
+                    <div class="control-panel">
+                        <select class="dropdown" id="optionA1" onchange="updateComparison()"><option value="벽돌">벽돌</option><option value="대리석">대리석</option><option value="유리">유리</option><option value="징크패널">징크패널</option></select>
+                        <select class="dropdown" id="optionA2" onchange="updateComparison()"><option value="아스팔트(물)">아스팔트(물)</option><option value="아스팔트(일반)" selected>아스팔트(일반)</option><option value="투수성 콘크리트">투수성 콘크리트</option></select>
+                        <div id="tempDisplayA" class="temperature-display"><div class="temperature-value" id="temperatureValueA">0.0°C</div></div>
+                    </div>
+                    <div class="display-panel"><img id="displayImageA" class="display-image" src="https://placehold.co/700x500/0f172a/94a3b8?text=Panel+A"></div>
+                </div>
+                <!-- Divider -->
+                <div class="comparison-divider">
+                    <div class="comparison-stat-label">온도 차이</div>
+                    <div class="comparison-stat-value" id="tempDiff">0.0°C</div>
+                </div>
+                <!-- Panel B -->
+                <div class="comparison-panel">
+                    <div class="control-panel">
+                        <select class="dropdown" id="optionB1" onchange="updateComparison()"><option value="벽돌">벽돌</option><option value="대리석">대리석</option><option value="유리" selected>유리</option><option value="징크패널">징크패널</option></select>
+                        <select class="dropdown" id="optionB2" onchange="updateComparison()"><option value="아스팔트(물)">아스팔트(물)</option><option value="아스팔트(일반)">아스팔트(일반)</option><option value="투수성 콘크리트" selected>투수성 콘크리트</option></select>
+                        <div id="tempDisplayB" class="temperature-display"><div class="temperature-value" id="temperatureValueB">0.0°C</div></div>
+                    </div>
+                    <div class="display-panel"><img id="displayImageB" class="display-image" src="https://placehold.co/700x500/0f172a/94a3b8?text=Panel+B"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 이미지 갤러리 모달 -->
+    <div id="imageGallery" class="image-gallery">
+        <div class="gallery-overlay" onclick="closeGallery()"></div>
+        <div class="gallery-content">
+            <button class="gallery-close" onclick="closeGallery()">×</button>
+            <button class="gallery-nav gallery-prev" onclick="navigateGallery(-1)">‹</button>
+            <img id="galleryImage" class="gallery-image" src="" alt="Gallery image">
+            <button class="gallery-nav gallery-next" onclick="navigateGallery(1)">›</button>
+            <div class="gallery-info">
+                <div id="galleryTitle" class="gallery-title"></div>
+                <div id="galleryTemp" class="gallery-temp"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // 전역 변수
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const baselineFileInput = document.getElementById('baselineFileInput');
+        const csvResults = document.getElementById('csvResults');
+        const chartsContainer = document.getElementById('chartsContainer');
+        const statsComparisonContainer = document.getElementById('statsComparison');
+        const fileNameEl = document.getElementById('fileName');
+        const initialLoadModal = document.getElementById('initialLoadModal');
+        const mainContainer = document.querySelector('.container');
+
+        let parsedBaselineData = null;
+        let parsedUserData = null;
+        let chartInstances = {};
+
+        // 탭 전환
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`${tabName}Tab`).classList.add('active');
+            document.querySelector(`.tab-button[onclick="switchTab('${tabName}')"]`).classList.add('active');
+        }
+        
+        // CSV 데이터 처리
+        function setupCsvUploadListeners() {
+            uploadArea.addEventListener('click', () => fileInput.click());
+            uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); uploadArea.classList.add('drag-over'); });
+            uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('drag-over'));
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('drag-over');
+                const file = e.dataTransfer.files[0];
+                if (file && (file.name.endsWith('.csv') || file.name.endsWith('.CSV'))) handleFile(file, false);
+            });
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) handleFile(file, false);
+            });
+        }
+        
+        function handleFile(file, isBaseline) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const parsedData = parseCSV(e.target.result);
+                if(isBaseline) {
+                    parsedBaselineData = parsedData;
+                    parsedBaselineData.fileName = file.name;
+                    initialLoadModal.style.display = 'none';
+                    mainContainer.style.display = 'block';
+                    renderInitialCharts();
+                } else {
+                    parsedUserData = parsedData;
+                    parsedUserData.fileName = file.name;
+                    fileNameEl.textContent = `현재 파일: ${file.name}`;
+                    renderAnalysis();
+                }
+            };
+            reader.readAsText(file, 'euc-kr');
+        }
+
+        function parseCSV(csvText) {
+            const lines = csvText.trim().replace(/\r/g, "").split('\n');
+            const headers = lines[0].split(',').map(h => h.trim());
+            
+            const headerMap = {
+                [headers[0]]: '시간',
+                [headers[1]]: '습도',
+                [headers[2]]: '온도'
+            };
+
+            const data = lines.slice(1).map(line => {
+                const values = line.split(',');
+                const row = {};
+                headers.forEach((header, index) => {
+                    if(headerMap[header]) {
+                       row[headerMap[header]] = values[index] ? values[index].trim() : '';
+                    }
+                });
+                return row;
+            }).filter(row => row['시간'] && row['온도'] && row['습도']);
+
+            return { data, headers: ['시간', '온도', '습도'] };
+        }
+        
+        function renderAnalysis() {
+            if (!parsedBaselineData) return;
+            csvResults.style.display = 'block';
+            statsComparisonContainer.style.display = 'block';
+            generateComparisonTable();
+            renderCharts();
+        }
+
+        function renderInitialCharts() {
+             if (!parsedBaselineData) return;
+            csvResults.style.display = 'block';
+            statsComparisonContainer.style.display = 'none';
+            renderCharts();
+        }
+
+        function generateComparisonTable() {
+            let tableHTML = `<div class="comparison-header">📊 통계 비교</div><table class="comparison-table"><thead><tr><th>측정 항목</th><th>기본 데이터 (평균)</th><th>사용자 데이터 (평균)</th><th>차이</th></tr></thead><tbody>`;
+            
+            ['온도', '습도'].forEach(header => {
+                const baseAvg = calculateAverage(parsedBaselineData.data, header);
+                const userAvg = parsedUserData ? calculateAverage(parsedUserData.data, header) : null;
+
+                let diffHtml = '<td class="stat-neutral">N/A</td>';
+                if (userAvg !== null) {
+                    const diff = userAvg - baseAvg;
+                    const diffPercent = baseAvg !== 0 ? (diff / baseAvg) * 100 : 0;
+                    const diffClass = diff > 0 ? 'stat-positive' : diff < 0 ? 'stat-negative' : 'stat-neutral';
+                    diffHtml = `<td class="${diffClass}">${diff.toFixed(2)} (${diff > 0 ? '+' : ''}${diffPercent.toFixed(1)}%)</td>`;
+                }
+
+                tableHTML += `
+                    <tr>
+                        <td><strong>${header}</strong></td>
+                        <td>${baseAvg.toFixed(2)}</td>
+                        <td>${userAvg !== null ? userAvg.toFixed(2) : 'N/A'}</td>
+                        ${diffHtml}
+                    </tr>
+                `;
+            });
+            
+            tableHTML += '</tbody></table>';
+            statsComparisonContainer.innerHTML = tableHTML;
+        }
+
+        function calculateAverage(data, key) {
+            const values = data.map(row => parseFloat(row[key])).filter(v => !isNaN(v));
+            return values.length > 0 ? values.reduce((a, b) => a + b, 0) / values.length : 0;
+        }
+
+        function renderCharts() {
+            chartsContainer.innerHTML = '';
+            ['온도', '습도'].forEach(metric => {
+                createOrUpdateChart(metric);
+            });
+        }
+
+        function stretchData(sourceArray, targetLength) {
+            if (!sourceArray || sourceArray.length === 0) {
+                return new Array(targetLength).fill(null);
+            }
+            if (sourceArray.length === targetLength) {
+                return sourceArray;
+            }
+
+            const stretched = new Array(targetLength);
+            const sourceLength = sourceArray.length;
+            const scaleFactor = (sourceLength - 1) / (targetLength - 1);
+
+            for (let i = 0; i < targetLength; i++) {
+                const sourceIndexFloat = i * scaleFactor;
+                const index1 = Math.floor(sourceIndexFloat);
+                const index2 = Math.ceil(sourceIndexFloat);
+                const fraction = sourceIndexFloat - index1;
+
+                if (index1 >= sourceLength -1) {
+                    stretched[i] = sourceArray[sourceLength - 1];
+                    continue;
+                }
+
+                if (index1 === index2) {
+                    stretched[i] = sourceArray[index1];
+                } else {
+                    const val1 = sourceArray[index1];
+                    const val2 = sourceArray[index2];
+                    stretched[i] = val1 + (val2 - val1) * fraction;
+                }
+            }
+            return stretched;
+        }
+        
+        function createOrUpdateChart(metric) {
+            const style = getComputedStyle(document.documentElement);
+            const textSecondaryColor = style.getPropertyValue('--text-secondary').trim();
+            const textPrimaryColor = style.getPropertyValue('--text-primary').trim();
+            const accentOrangeColor = style.getPropertyValue('--accent-orange').trim();
+            
+            const container = document.createElement('div');
+            container.className = 'chart-container';
+            container.innerHTML = `<div class="chart-title">${metric === '온도' ? '🌡️' : '💧'} ${metric} 비교</div>`;
+            const canvas = document.createElement('canvas');
+            container.appendChild(canvas);
+            chartsContainer.appendChild(container);
+
+            const baselineValues = parsedBaselineData.data.map(r => parseFloat(r[metric])).filter(v => !isNaN(v));
+            
+            let userValues = [];
+            if (parsedUserData) {
+                userValues = parsedUserData.data.map(r => parseFloat(r[metric])).filter(v => !isNaN(v));
+            }
+            const maxDataLength = Math.max(baselineValues.length, userValues.length);
+            const chartLabels = Array.from({ length: maxDataLength }, (_, i) => i + 1);
+
+            const finalBaselineValues = stretchData(baselineValues, maxDataLength);
+            
+            const datasets = [{
+                label: '기본 데이터',
+                data: finalBaselineValues,
+                borderColor: 'rgba(255, 255, 255, 0.8)',
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                borderWidth: 2,
+                tension: 0.4,
+                pointRadius: 0,
+                fill: false
+            }];
+
+            if(parsedUserData) {
+                const finalUserValues = stretchData(userValues, maxDataLength);
+                datasets.push({
+                    label: parsedUserData.fileName,
+                    data: finalUserValues,
+                    borderColor: 'rgba(135, 206, 235, 0.8)', // Sky Blue
+                    backgroundColor: 'rgba(135, 206, 235, 0.2)',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    pointRadius: 0,
+                    fill: true
+                });
+                
+                const trendLine = calculateTrendLine(finalUserValues);
+                datasets.push({
+                    label: '추세선',
+                    data: trendLine,
+                    borderColor: accentOrangeColor,
+                    borderWidth: 2,
+                    borderDash: [5, 5],
+                    pointRadius: 0,
+                    fill: false
+                });
+            }
+            
+            new Chart(canvas, {
+                type: 'line',
+                data: { labels: chartLabels, datasets: datasets },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { 
+                            ticks: { 
+                                color: textSecondaryColor,
+                            }, 
+                            grid: { color: 'rgba(71, 85, 105, 0.3)'},
+                            title: {
+                                display: true,
+                                text: '데이터 순서',
+                                color: textSecondaryColor
+                            }
+                        },
+                        y: { 
+                            ticks: { color: textSecondaryColor }, 
+                            grid: { color: 'rgba(71, 85, 105, 0.3)' },
+                            min: 20,
+                            max: 60
+                        }
+                    },
+                    plugins: { 
+                        legend: { 
+                            labels: { color: textPrimaryColor } 
+                        } 
+                    }
+                }
+            });
+        }
+
+        function calculateTrendLine(values) {
+            const n = values.length;
+            if (n === 0) return [];
+            const indices = Array.from({length: n}, (_, i) => i);
+            const sumX = indices.reduce((a, b) => a + b, 0);
+            const sumY = values.reduce((a, b) => a + b, 0);
+            const sumXY = indices.reduce((sum, x, i) => sum + x * values[i], 0);
+            const sumX2 = indices.reduce((sum, x) => sum + x * x, 0);
+            const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX) || 0;
+            const intercept = (sumY - slope * sumX) / n;
+            return indices.map(x => slope * x + intercept);
+        }
+
+        // 시뮬레이터
+        const simulatorData = {
+            '벽돌-아스팔트(물)': { temp: 28.5, image: 'https://placehold.co/700x500/57534e/ffffff?text=벽돌+%2B+젖은+아스팔트' },
+            '벽돌-아스팔트(일반)': { temp: 32.8, image: 'https://placehold.co/700x500/57534e/ffffff?text=벽돌+%2B+일반+아스팔트' },
+            '벽돌-투수성 콘크리트': { temp: 26.3, image: 'https://placehold.co/700x500/57534e/ffffff?text=벽돌+%2B+투수성+콘크리트' },
+            '대리석-아스팔트(물)': { temp: 30.1, image: 'https://placehold.co/700x500/d6d3d1/000000?text=대리석+%2B+젖은+아스팔트' },
+            '대리석-아스팔트(일반)': { temp: 35.2, image: 'https://placehold.co/700x500/d6d3d1/000000?text=대리석+%2B+일반+아스팔트' },
+            '대리석-투수성 콘크리트': { temp: 28.9, image: 'https://placehold.co/700x500/d6d3d1/000000?text=대리석+%2B+투수성+콘크리트' },
+            '유리-아스팔트(물)': { temp: 33.5, image: 'https://placehold.co/700x500/bae6fd/000000?text=유리+%2B+젖은+아스팔트' },
+            '유리-아스팔트(일반)': { temp: 38.6, image: 'https://placehold.co/700x500/bae6fd/000000?text=유리+%2B+일반+아스팔트' },
+            '유리-투수성 콘크리트': { temp: 31.7, image: 'https://placehold.co/700x500/bae6fd/000000?text=유리+%2B+투수성+콘크리트' },
+            '징크패널-아스팔트(물)': { temp: 29.4, image: 'https://placehold.co/700x500/334155/ffffff?text=징크패널+%2B+젖은+아스팔트' },
+            '징크패널-아스팔트(일반)': { temp: 34.2, image: 'https://placehold.co/700x500/334155/ffffff?text=징크패널+%2B+일반+아스팔트' },
+            '징크패널-투수성 콘크리트': { temp: 27.8, image: 'https://placehold.co/700x500/334155/ffffff?text=징크패널+%2B+투수성+콘크리트' }
+        };
+
+        function updateSimulator() {
+            const key = `${document.getElementById('option1').value}-${document.getElementById('option2').value}`;
+            const data = simulatorData[key];
+            if (!data) return;
+
+            const imgElement = document.getElementById('displayImage');
+            imgElement.style.opacity = '0';
+            setTimeout(() => {
+                imgElement.src = data.image;
+                imgElement.alt = key;
+                imgElement.style.opacity = '1';
+            }, 300);
+            
+            animateTemperature(document.getElementById('temperatureValue'), data.temp);
+            updateTemperatureColor(document.getElementById('tempDisplay'), data.temp);
+        }
+
+        function animateTemperature(element, targetTemp) {
+            const currentTemp = parseFloat(element.textContent) || targetTemp;
+            const duration = 500;
+            const frameRate = 60;
+            const totalFrames = duration / (1000 / frameRate);
+            const increment = (targetTemp - currentTemp) / totalFrames;
+            let currentFrame = 0;
+
+            const interval = setInterval(() => {
+                currentFrame++;
+                const newTemp = currentTemp + (increment * currentFrame);
+                element.textContent = `${newTemp.toFixed(1)}°C`;
+                if (currentFrame >= totalFrames) {
+                    element.textContent = `${targetTemp.toFixed(1)}°C`;
+                    clearInterval(interval);
+                }
+            }, 1000 / frameRate);
+        }
+
+        function updateTemperatureColor(element, temp) {
+            let gradient;
+            if (temp < 28) gradient = 'linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(96, 165, 250, 0.2) 100%)';
+            else if (temp < 32) gradient = 'linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(52, 211, 153, 0.2) 100%)';
+            else if (temp < 36) gradient = 'linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(251, 191, 36, 0.2) 100%)';
+            else gradient = 'linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(248, 113, 113, 0.2) 100%)';
+            element.style.background = gradient;
+        }
+
+        // 비교 모드
+        let isComparisonMode = false;
+        function toggleComparisonMode() {
+            isComparisonMode = !isComparisonMode;
+            document.getElementById('singleSimulator').style.display = isComparisonMode ? 'none' : 'grid';
+            document.getElementById('comparisonSimulator').style.display = isComparisonMode ? 'grid' : 'none';
+            document.getElementById('toggleModeBtn').textContent = isComparisonMode ? '단일 모드로' : '비교 모드 켜기';
+            if (isComparisonMode) updateComparison();
+        }
+
+        function updateComparison() {
+            const keyA = `${document.getElementById('optionA1').value}-${document.getElementById('optionA2').value}`;
+            const dataA = simulatorData[keyA];
+            const keyB = `${document.getElementById('optionB1').value}-${document.getElementById('optionB2').value}`;
+            const dataB = simulatorData[keyB];
+            
+            if(dataA) {
+                document.getElementById('displayImageA').src = dataA.image;
+                animateTemperature(document.getElementById('temperatureValueA'), dataA.temp);
+                updateTemperatureColor(document.getElementById('tempDisplayA'), dataA.temp);
+            }
+            if(dataB) {
+                document.getElementById('displayImageB').src = dataB.image;
+                animateTemperature(document.getElementById('temperatureValueB'), dataB.temp);
+                updateTemperatureColor(document.getElementById('tempDisplayB'), dataB.temp);
+            }
+            if(dataA && dataB) {
+                const diff = dataB.temp - dataA.temp;
+                document.getElementById('tempDiff').textContent = `${diff.toFixed(1)}°C`;
+            }
+        }
+        
+        // 이미지 갤러리
+        const galleryItems = Object.keys(simulatorData);
+        let currentGalleryIndex = 0;
+
+        document.querySelectorAll('.display-image').forEach(img => img.addEventListener('click', (e) => {
+            const altText = e.target.alt;
+            const index = galleryItems.indexOf(altText);
+            if(index > -1) {
+                currentGalleryIndex = index;
+                openGallery();
+            }
+        }));
+
+        function openGallery() {
+            document.getElementById('imageGallery').style.display = 'flex';
+            updateGalleryContent();
+            document.addEventListener('keydown', handleGalleryKeydown);
+        }
+
+        function closeGallery() {
+            document.getElementById('imageGallery').style.display = 'none';
+            document.removeEventListener('keydown', handleGalleryKeydown);
+        }
+
+        function navigateGallery(direction) {
+            currentGalleryIndex = (currentGalleryIndex + direction + galleryItems.length) % galleryItems.length;
+            updateGalleryContent();
+        }
+
+        function updateGalleryContent() {
+            const key = galleryItems[currentGalleryIndex];
+            const data = simulatorData[key];
+            document.getElementById('galleryImage').src = data.image;
+            document.getElementById('galleryTitle').textContent = key.replace('-', ' + ');
+            document.getElementById('galleryTemp').textContent = `${data.temp.toFixed(1)}°C`;
+        }
+        
+        function handleGalleryKeydown(e) {
+            if (e.key === 'Escape') closeGallery();
+            if (e.key === 'ArrowLeft') navigateGallery(-1);
+            if (e.key === 'ArrowRight') navigateGallery(1);
+        }
+
+        // 초기화
+        function initialize() {
+            baselineFileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) handleFile(file, true);
+            });
+            setupCsvUploadListeners();
+            updateSimulator();
+            updateComparison();
+        }
+
+        window.addEventListener('DOMContentLoaded', initialize);
+    </script>
+</body>
+</html>
+
