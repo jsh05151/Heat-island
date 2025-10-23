@@ -329,7 +329,7 @@
                     <div class="dropdown-section">
                         <label class="dropdown-label">도로 포장재</label>
                         <select class="dropdown" id="option2" onchange="updateSimulator()">
-                            <option value="아스팔트(물)">아스팔트(물)</option> <option value="아스팔트(일반)">아스팔트(일반)</option> <option value="투수성 콘크리트">투수성 콘크리트</option>
+                            <option value="아스팔트(물)">아스팔트(물)</option> <option value="아스팔트(일반)">아스팔트(일반)</option> <option value="투수성 아스팔트">투수성 아스팔트</option>
                         </select>
                     </div>
                     <div id="tempDisplay" class="temperature-display">
@@ -348,7 +348,7 @@
                 <div class="comparison-panel">
                     <div class="control-panel">
                         <select class="dropdown" id="optionA1" onchange="updateComparison()"><option value="벽돌">벽돌</option><option value="대리석">대리석</option><option value="유리">유리</option><option value="징크패널">징크패널</option></select>
-                        <select class="dropdown" id="optionA2" onchange="updateComparison()"><option value="아스팔트(물)">아스팔트(물)</option><option value="아스팔트(일반)" selected>아스팔트(일반)</option><option value="투수성 콘크리트">투수성 콘크리트</option></select>
+                        <select class="dropdown" id="optionA2" onchange="updateComparison()"><option value="아스팔트(물)">아스팔트(물)</option><option value="아스팔트(일반)" selected>아스팔트(일반)</option><option value="투수성 아스팔트">투수성 아스팔트</option></select>
                         <div id="tempDisplayA" class="temperature-display"><div class="temperature-value" id="temperatureValueA">0.0°C</div></div>
                     </div>
                     <div class="display-panel"><img id="displayImageA" class="display-image" src="https://placehold.co/700x500/0f172a/94a3b8?text=Panel+A"></div>
@@ -362,7 +362,7 @@
                 <div class="comparison-panel">
                     <div class="control-panel">
                         <select class="dropdown" id="optionB1" onchange="updateComparison()"><option value="벽돌">벽돌</option><option value="대리석">대리석</option><option value="유리" selected>유리</option><option value="징크패널">징크패널</option></select>
-                        <select class="dropdown" id="optionB2" onchange="updateComparison()"><option value="아스팔트(물)">아스팔트(물)</option><option value="아스팔트(일반)">아스팔트(일반)</option><option value="투수성 콘크리트" selected>투수성 콘크리트</option></select>
+                        <select class="dropdown" id="optionB2" onchange="updateComparison()"><option value="아스팔트(물)">아스팔트(물)</option><option value="아스팔트(일반)">아스팔트(일반)</option><option value="투수성 아스팔트" selected>투수성 아스팔트</option></select>
                         <div id="tempDisplayB" class="temperature-display"><div class="temperature-value" id="temperatureValueB">0.0°C</div></div>
                     </div>
                     <div class="display-panel"><img id="displayImageB" class="display-image" src="https://placehold.co/700x500/0f172a/94a3b8?text=Panel+B"></div>
@@ -377,7 +377,7 @@
         <div class="gallery-content">
             <button class="gallery-close" onclick="closeGallery()">×</button>
             <button class="gallery-nav gallery-prev" onclick="navigateGallery(-1)">‹</button>
-            <img id="galleryImage" class="gallery-image" src="" alt="Gallery image">
+            <img id="galleryImage" class="gallery-image" src="/placeholder.svg" alt="Gallery image">
             <button class="gallery-nav gallery-next" onclick="navigateGallery(1)">›</button>
             <div class="gallery-info">
                 <div id="galleryTitle" class="gallery-title"></div>
@@ -671,18 +671,25 @@
 
         // 시뮬레이터
         const simulatorData = {
-            '벽돌-아스팔트(물)': { temp: 28.5, image: 'https://placehold.co/700x500/57534e/ffffff?text=벽돌+%2B+젖은+아스팔트' },
-            '벽돌-아스팔트(일반)': { temp: 32.8, image: 'https://placehold.co/700x500/57534e/ffffff?text=벽돌+%2B+일반+아스팔트' },
-            '벽돌-투수성 콘크리트': { temp: 26.3, image: 'https://placehold.co/700x500/57534e/ffffff?text=벽돌+%2B+투수성+콘크리트' },
-            '대리석-아스팔트(물)': { temp: 30.1, image: 'https://placehold.co/700x500/d6d3d1/000000?text=대리석+%2B+젖은+아스팔트' },
-            '대리석-아스팔트(일반)': { temp: 35.2, image: 'https://placehold.co/700x500/d6d3d1/000000?text=대리석+%2B+일반+아스팔트' },
-            '대리석-투수성 콘크리트': { temp: 28.9, image: 'https://placehold.co/700x500/d6d3d1/000000?text=대리석+%2B+투수성+콘크리트' },
-            '유리-아스팔트(물)': { temp: 33.5, image: 'https://placehold.co/700x500/bae6fd/000000?text=유리+%2B+젖은+아스팔트' },
-            '유리-아스팔트(일반)': { temp: 38.6, image: 'https://placehold.co/700x500/bae6fd/000000?text=유리+%2B+일반+아스팔트' },
-            '유리-투수성 콘크리트': { temp: 31.7, image: 'https://placehold.co/700x500/bae6fd/000000?text=유리+%2B+투수성+콘크리트' },
-            '징크패널-아스팔트(물)': { temp: 29.4, image: 'https://placehold.co/700x500/334155/ffffff?text=징크패널+%2B+젖은+아스팔트' },
-            '징크패널-아스팔트(일반)': { temp: 34.2, image: 'https://placehold.co/700x500/334155/ffffff?text=징크패널+%2B+일반+아스팔트' },
-            '징크패널-투수성 콘크리트': { temp: 27.8, image: 'https://placehold.co/700x500/334155/ffffff?text=징크패널+%2B+투수성+콘크리트' }
+            // --- 1. Brick (벽돌) ---
+            '벽돌-아스팔트(물)': { temp: 35.89, image: 'https://placehold.co/700x500/57534e/ffffff?text=벽돌+%2B+젖은+아스팔트' },
+            '벽돌-아스팔트(일반)': { temp: 34.85, image: 'https://placehold.co/700x500/57534e/ffffff?text=벽돌+%2B+일반+아스팔트' },
+            '벽돌-투수성 아스팔트': { temp: 28.19, image: 'https://placehold.co/700x500/57534e/ffffff?text=벽돌+%2B+투수성+아스팔트' },
+
+            // --- 2. Marble (대리석) ---
+            '대리석-아스팔트(물)': { temp: 38.49, image: 'https://placehold.co/700x500/d6d3d1/000000?text=대리석+%2B+젖은+아스팔트' },
+            '대리석-아스팔트(일반)': { temp: 37.45, image: 'https://placehold.co/700x500/d6d3d1/000000?text=대리석+%2B+일반+아스팔트' },
+            '대리석-투수성 아스팔트': { temp: 30.79, image: 'https://placehold.co/700x500/d6d3d1/000000?text=대리석+%2B+투수성+아스팔트' },
+
+            // --- 3. Glass (유리) ---
+            '유리-아스팔트(물)': { temp: 33.23, image: 'https://placehold.co/700x500/bae6fd/000000?text=유리+%2B+젖은+아스팔트' },
+            '유리-아스팔트(일반)': { temp: 32.19, image: 'https://placehold.co/700x500/bae6fd/000000?text=유리+%2B+일반+아스팔트' },
+            '유리-투수성 아스팔트': { temp: 25.53, image: 'https://placehold.co/700x500/bae6fd/000000?text=유리+%2B+투수성+아스팔트' },
+
+            // --- 4. Zinc Panel (징크패널) ---
+            '징크패널-아스팔트(물)': { temp: 36.77, image: 'https://placehold.co/700x500/334155/ffffff?text=징크패널+%2B+젖은+아스팔트' },
+            '징크패널-아스팔트(일반)': { temp: 35.73, image: 'https://placehold.co/700x500/334155/ffffff?text=징크패널+%2B+일반+아스팔트' },
+            '징크패널-투수성 아스팔트': { temp: 29.07, image: 'https://placehold.co/700x500/334155/ffffff?text=징크패널+%2B+투수성+아스팔트' }
         };
 
         function updateSimulator() {
@@ -820,4 +827,3 @@
     </script>
 </body>
 </html>
-
