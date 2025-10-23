@@ -284,7 +284,8 @@
 
     <div class="container">
         <header>
-            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_rmosk9rmosk9rmos-removebg-preview-QLrmtACEY8LajTXPwLnqUo6wAnnpE.png" alt="SIoT Logo" class="logo">
+            <!-- Replaced broken Gemini logo URL with placeholder -->
+            <img src="https://placehold.co/150x150/22d3ee/ffffff?text=SIoT" alt="SIoT Logo" class="logo">
             <h1>SIoT 데이터 분석 플랫폼</h1>
             <p class="subtitle">Future Science High School - 도시 열섬 현상 연구</p>
         </header>
@@ -298,7 +299,8 @@
         <div id="csvTab" class="tab-content active">
             <div class="upload-section">
                 <div class="upload-area" id="uploadArea">
-                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_rmosk9rmosk9rmos-removebg-preview-QLrmtACEY8LajTXPwLnqUo6wAnnpE.png" alt="Upload Icon" class="upload-icon">
+                    <!-- Replaced broken upload icon URL with placeholder -->
+                    <img src="https://placehold.co/120x120/22d3ee/ffffff?text=Upload" alt="Upload Icon" class="upload-icon">
                     <div class="upload-text">실험 데이터 CSV 파일을 드래그하거나 클릭하여 업로드</div>
                     <div id="fileName" class="upload-hint">현재 선택된 파일 없음</div>
                 </div>
@@ -377,7 +379,8 @@
         <div class="gallery-content">
             <button class="gallery-close" onclick="closeGallery()">×</button>
             <button class="gallery-nav gallery-prev" onclick="navigateGallery(-1)">‹</button>
-            <img id="galleryImage" class="gallery-image" src="/placeholder.svg" alt="Gallery image">
+            <!-- Replaced /placeholder.svg with proper placeholder URL -->
+            <img id="galleryImage" class="gallery-image" src="https://placehold.co/800x600/0f172a/94a3b8?text=Gallery" alt="Gallery image">
             <button class="gallery-nav gallery-next" onclick="navigateGallery(1)">›</button>
             <div class="gallery-info">
                 <div id="galleryTitle" class="gallery-title"></div>
@@ -672,24 +675,24 @@
         // 시뮬레이터
         const simulatorData = {
             // --- 1. Brick (벽돌) ---
-            '벽돌-아스팔트(물)': { temp: 35.89, image: 'https://placehold.co/700x500/57534e/ffffff?text=벽돌+%2B+젖은+아스팔트' },
-            '벽돌-아스팔트(일반)': { temp: 34.85, image: 'https://placehold.co/700x500/57534e/ffffff?text=벽돌+%2B+일반+아스팔트' },
-            '벽돌-투수성 아스팔트': { temp: 28.19, image: 'https://placehold.co/700x500/57534e/ffffff?text=벽돌+%2B+투수성+아스팔트' },
+            '벽돌-아스팔트(물)': { temp: 35.89, image: 'img/wwo.png' },
+            '벽돌-아스팔트(일반)': { temp: 34.85, image: 'img/wwx.png' },
+            '벽돌-투수성 아스팔트': { temp: 28.19, image: 'img/wt.png' },
 
             // --- 2. Marble (대리석) ---
-            '대리석-아스팔트(물)': { temp: 38.49, image: 'https://placehold.co/700x500/d6d3d1/000000?text=대리석+%2B+젖은+아스팔트' },
-            '대리석-아스팔트(일반)': { temp: 37.45, image: 'https://placehold.co/700x500/d6d3d1/000000?text=대리석+%2B+일반+아스팔트' },
-            '대리석-투수성 아스팔트': { temp: 30.79, image: 'https://placehold.co/700x500/d6d3d1/000000?text=대리석+%2B+투수성+아스팔트' },
+            '대리석-아스팔트(물)': { temp: 38.49, image: 'img/dwo.png' },
+            '대리석-아스팔트(일반)': { temp: 37.45, image: 'img/dwx.png' },
+            '대리석-투수성 아스팔트': { temp: 30.79, image: 'img/dt.png' },
 
             // --- 3. Glass (유리) ---
-            '유리-아스팔트(물)': { temp: 33.23, image: 'https://placehold.co/700x500/bae6fd/000000?text=유리+%2B+젖은+아스팔트' },
-            '유리-아스팔트(일반)': { temp: 32.19, image: 'https://placehold.co/700x500/bae6fd/000000?text=유리+%2B+일반+아스팔트' },
-            '유리-투수성 아스팔트': { temp: 25.53, image: 'https://placehold.co/700x500/bae6fd/000000?text=유리+%2B+투수성+아스팔트' },
+            '유리-아스팔트(물)': { temp: 33.23, image: 'img/gwo.png' },
+            '유리-아스팔트(일반)': { temp: 32.19, image: 'img/gwx.png' },
+            '유리-투수성 아스팔트': { temp: 25.53, image: 'img/gt.png' },
 
             // --- 4. Zinc Panel (징크패널) ---
-            '징크패널-아스팔트(물)': { temp: 36.77, image: 'https://placehold.co/700x500/334155/ffffff?text=징크패널+%2B+젖은+아스팔트' },
-            '징크패널-아스팔트(일반)': { temp: 35.73, image: 'https://placehold.co/700x500/334155/ffffff?text=징크패널+%2B+일반+아스팔트' },
-            '징크패널-투수성 아스팔트': { temp: 29.07, image: 'https://placehold.co/700x500/334155/ffffff?text=징크패널+%2B+투수성+아스팔트' }
+            '징크패널-아스팔트(물)': { temp: 36.77, image: 'img/jwo.png' },
+            '징크패널-아스팔트(일반)': { temp: 35.73, image: 'img/jwx.png' },
+            '징크패널-투수성 아스팔트': { temp: 29.07, image: 'img/jt.png' }
         };
 
         function updateSimulator() {
