@@ -311,13 +311,13 @@
     <div class="container">
         <header>
             <img src="img/logo.png" alt="SIoT Logo" class="logo">
-            <h1>온도 데이터 분석 시스템</h1>
+            <h1>도시 열섬현상 해결 시뮬레이</h1>
             <p class="subtitle">Future Science High School - 도시 열섬 현상 연구</p>
         </header>
 
         <div class="tabs">
-            <button class="tab-button active" onclick="switchTab('csv')">CSV 데이터 분석</button>
-            <button class="tab-button" onclick="switchTab('simulator')">인터랙티브 시뮬레이터</button>
+            <button class="tab-button active" onclick="switchTab('csv')">도시 모델 온도 시뮬레이터</button>
+            <button class="tab-button" onclick="switchTab('simulator')">온도 변화 그래프</button>
         </div>
 
         <div id="csvTab" class="tab-content active">
@@ -327,7 +327,7 @@
 
                     <div class="analysis-panel">
                         <div class="selection-item">
-                            <label class="selection-label">데이터 1</label>
+                            <label class="selection-label">모델 1</label>
                             <select class="selection-dropdown" id="data1Select" onchange="onDropdownChange(1)">
                                 <option value="model1" selected>도시 모델 1</option>
                                 <option value="model2">도시 모델 2</option>
@@ -353,7 +353,7 @@
 
                     <div class="analysis-panel">
                         <div class="selection-item">
-                            <label class="selection-label">데이터 2</label>
+                            <label class="selection-label">모델 2</label>
                             <select class="selection-dropdown" id="data2Select" onchange="onDropdownChange(2)">
                                 <option value="">선택 안 함</option>
                                 <option value="model1">도시 모델 1</option>
@@ -379,7 +379,7 @@
 
                     <div class="analysis-panel">
                         <div class="selection-item">
-                            <label class="selection-label">데이터 3</label>
+                            <label class="selection-label">모델 3</label>
                             <select class="selection-dropdown" id="data3Select" onchange="onDropdownChange(3)">
                                 <option value="">선택 안 함</option>
                                 <option value="model1">도시 모델 1</option>
@@ -998,5 +998,6 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
     </script>
 </body>
 </html>
+
 
 
