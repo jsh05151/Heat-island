@@ -420,7 +420,7 @@
                      <div class="dropdown-section">
                         <label class="dropdown-label">건축 외장재</label>
                         <select class="dropdown" id="option1" onchange="updateSimulator()">
-                            <option value="벽돌">벽돌</option>
+                            <option value="시멘트">시멘트</option>
                             <option value="대리석">대리석</option>
                             <option value="유리">유리</option>
                             <option value="징크패널">징크패널</option>
@@ -440,7 +440,7 @@
                     </div>
                 </div>
                 <div class="display-panel">
-                    <img id="displayImage" src="img/wwo.png" alt="벽돌-아스팔트(물)" class="display-image">
+                    <img id="displayImage" src="img/wwo.png" alt="시멘트-아스팔트(물)" class="display-image">
                 </div>
             </div>
 
@@ -616,15 +616,15 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
         // 모델별 설명 데이터
         const modelDescriptionData = {
             'model1': {
-                exterior: '대리석 70%, 벽돌 60%',
+                exterior: '대리석 70%, 시멘트 30%',
                 pavement: '일반 아스팔트 100%'
             },
             'model2': {
-                exterior: '유리 26.79%, 벽돌 25.64%, 패널 24.29%, 대리석 23.27%',
+                exterior: '유리 26.79%, 시멘트 25.64%, 패널 24.29%, 대리석 23.27%',
                 pavement: '일반 아스팔트 100%'
             },
             'model3': {
-                exterior: '유리 26.79%, 벽돌 25.64%, 패널 24.29%, 대리석 23.27%',
+                exterior: '유리 26.79%, 시멘트 25.64%, 패널 24.29%, 대리석 23.27%',
                 pavement: '투수성 아스팔트 38.79%, 아스팔트 일반 31.84%, 아스팔트 물 29.37%'
             }
         };
@@ -869,9 +869,9 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
         
         // [롤백] 'image' 속성 복원 및 img/ 경로 적용
         const simulatorData = {
-            '벽돌-아스팔트(물)': { temp: 35.89, image: 'img/wwo.png' },
-            '벽돌-아스팔트(일반)': { temp: 34.85, image: 'img/wwx.png' },
-            '벽돌-투수성 아스팔트': { temp: 28.19, image: 'img/wt.png' },
+            '시멘트-아스팔트(물)': { temp: 35.89, image: 'img/wwo.png' },
+            '시멘트-아스팔트(일반)': { temp: 34.85, image: 'img/wwx.png' },
+            '시멘트-투수성 아스팔트': { temp: 28.19, image: 'img/wt.png' },
             '대리석-아스팔트(물)': { temp: 38.49, image: 'img/dwo.png' },
             '대리석-아스팔트(일반)': { temp: 37.45, image: 'img/dwx.png' },
             '대리석-투수성 아스팔트': { temp: 30.79, image: 'img/dt.png' },
@@ -998,4 +998,5 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
     </script>
 </body>
 </html>
+
 
