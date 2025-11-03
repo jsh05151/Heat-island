@@ -12,7 +12,7 @@
             --card-bg: rgba(30, 41, 59, 0.8);
             --border-color: rgba(148, 163, 184, 0.2);
             --text-primary: #e2e8f0;
-            --text-secondary: #94a3b8; /* 이 색상(연한 회색)이 적용됩니다 */
+            --text-secondary: #94a3b8;
             --accent-cyan: #22d3ee;
             --accent-green: #10b981;
             --accent-purple: #a855f7;
@@ -52,13 +52,6 @@
             margin-bottom: 2rem;
         }
 
-        .logo {
-            width: 150px;
-            height: auto;
-            margin: 0 auto 1rem;
-            display: block;
-        }
-
         h1 {
             font-size: 2.5rem;
             font-weight: 700;
@@ -76,6 +69,7 @@
 
         .tabs {
             display: flex;
+            flex-wrap: wrap; /* 탭이 많아질 경우 줄바꿈 */
             gap: 1rem;
             margin-bottom: 2rem;
             justify-content: center;
@@ -122,18 +116,17 @@
             border: 1px solid var(--border-color);
         }
 
-        /* 3열 그리드 레이아웃 */
+        /* --- 탭 1 (모델 분석) 스타일 --- */
         .csv-analysis-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 1.5rem;
         }
 
-        /* 3열 그리드 내부의 각 패널 */
         .analysis-panel {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem; /* 드롭다운, 이미지, 설명 간의 간격 */
+            gap: 1.5rem;
         }
 
         .selection-item {
@@ -170,24 +163,22 @@
             box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
         }
 
-        /* flex-grow가 제거됨 */
         .model-image-panel, .model-description-panel {
-            background: rgba(15, 23, 42, 0.8); /* 어두운 카드 배경 */
+            background: rgba(15, 23, 42, 0.8);
             border-radius: 12px;
             padding: 1.5rem;
             border: 1px solid var(--border-color);
         }
         
-        /* 설명 패널만 flex-grow를 가짐 */
         .model-description-panel {
              display: flex;
              flex-direction: column;
-             flex-grow: 1; /* 설명 패널이 남는 공간을 모두 차지 */
+             flex-grow: 1;
         }
 
         .model-image {
             width: 100%;
-            height: 200px; /* 이미지 높이 고정 */
+            height: 200px;
             border-radius: 8px;
             object-fit: cover;
         }
@@ -198,13 +189,12 @@
         .model-desc-label {
             font-weight: 600;
             color: var(--text-secondary);
-            display: block; /* 라벨을 위로 올림 */
+            display: block;
             margin-bottom: 0.25rem;
         }
         .model-desc-content {
             color: var(--text-primary);
             line-height: 1.5;
-            /* 텍스트가 길어지면 줄바꿈 */
             word-break: keep-all; 
             overflow-wrap: break-word;
         }
@@ -213,21 +203,29 @@
             font-weight: 600;
             margin-bottom: 1rem;
             color: var(--text-primary);
-            /* 제목 높이를 일정하게 유지하기 위해 최소 높이 설정 */
             min-height: 2.2rem;
         }
 
-        /* [CSS 추가] 요청하신 문구를 위한 스타일 */
         .model-note {
             font-size: 0.875rem;
-            color: var(--text-secondary); /* 연한 회색 */
-            font-style: italic; /* 기울임꼴 */
-            margin-top: 1rem; /* 위쪽 여백 */
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-top: 1rem;
             line-height: 1.4;
             word-break: keep-all;
         }
 
+        /* --- 탭 3 (재료 분석) 스타일 --- */
+        /* #materialTab 내부의 .selection-grid에만 적용 */
+        #materialTab .selection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
 
+
+        /* --- 공통 차트/테이블 스타일 --- */
         .chart-container {
             background: var(--card-bg);
             border-radius: 12px;
@@ -275,8 +273,12 @@
             font-size: 0.875rem;
         }
 
-        .simulator-container { display: grid; gap: 2rem; } /* [수정] .comparison-simulator 제거 */
-        .simulator-container { grid-template-columns: 30% 70%; }
+        /* --- 탭 2 (시뮬레이터) 스타일 --- */
+        .simulator-container { 
+            display: grid; 
+            gap: 2rem;
+            grid-template-columns: 30% 70%; 
+        }
         .control-panel, .display-panel {
              background: var(--card-bg); border-radius: 16px; padding: 2rem;
         }
@@ -286,10 +288,9 @@
         .temperature-label { font-size: 0.875rem; color: var(--text-secondary); font-weight: 600; }
         .temperature-value { font-size: 3rem; font-weight: 700; transition: color 0.5s ease; }
         
-        /* [삭제] 비교 모드 관련 CSS 제거 */
-        
         .display-image { max-width: 100%; max-height: 500px; border-radius: 8px; cursor: pointer; transition: opacity 0.5s ease; }
 
+        /* --- 갤러리 (공통) --- */
         .image-gallery { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; display: none; align-items: center; justify-content: center; }
         .gallery-overlay { position: absolute; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(10px); }
         .gallery-content { position: relative; max-width: 80vw; max-height: 80vh; }
@@ -307,11 +308,15 @@
         
         @media (max-width: 1024px) {
             .simulator-container { grid-template-columns: 1fr; }
-            /* [삭제] .comparison-simulator { ... } 제거 */
             .gallery-nav { display: none; }
             
-            /* 3열 그리드 모바일 대응 (1열로 스택) */
+            /* 탭 1 그리드 모바일 */
             .csv-analysis-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            /* 탭 3 그리드 모바일 */
+            #materialTab .selection-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -325,8 +330,9 @@
         </header>
 
         <div class="tabs">
-            <button class="tab-button active" onclick="switchTab('csv')">도시 모델 온도 시뮬레이터</button>
-            <button class="tab-button" onclick="switchTab('simulator')">온도 변화 그래프</button>
+            <button class="tab-button active" onclick="switchTab('csv')">도시 모델 분석</button>
+            <button class="tab-button" onclick="switchTab('simulator')">온도 변화 시뮬레이터</button>
+            <button class="tab-button" onclick="switchTab('material')">원본 재료 분석</button>
         </div>
 
         <div id="csvTab" class="tab-content active">
@@ -443,6 +449,7 @@
 
             <div id="chartsContainer"></div>
         </div>
+        
         <div id="simulatorTab" class="tab-content">
             
             <div id="singleSimulator" class="simulator-container">
@@ -459,7 +466,7 @@
                     <div class="dropdown-section">
                         <label class="dropdown-label">바닥재</label>
                         <select class="dropdown" id="option2" onchange="updateSimulator()">
-                            <option value="물 뿌린 아스팔트">물 뿌린 아스팔트</option>
+                            <option value="물 있는 아스팔트">물 있는 아스팔트</option>
                             <option value="아스팔트(일반)">아스팔트(일반)</option>
                             <option value="투수성 아스팔트">투수성 아스팔트</option>
                         </select>
@@ -479,12 +486,78 @@
                     </div>
                 </div>
                 <div class="display-panel">
-                    <img id="displayImage" src="img/wwo.png" alt="시멘트-물 뿌린 아스팔트-호수" class="display-image">
+                    <img id="displayImage" src="img/wwo.png" alt="시멘트-물 있는 아스팔트-호수" class="display-image">
                 </div>
             </div>
 
-            </div>
         </div>
+        
+        <div id="materialTab" class="tab-content">
+            <div class="selection-section">
+                <div class="selection-grid"> 
+                    <div class="selection-item">
+                        <label class="selection-label">데이터 1</label>
+                        <select class="selection-dropdown" id="mat_data1Select" onchange="mat_updateCharts()">
+                            <option value="">선택 안 함</option>
+                            <option value="basedata" selected>기준 데이터</option>
+                            <option value="벽돌">벽돌</option>
+                            <option value="대리석">대리석</option>
+                            <option value="GLASS">유리</option>
+                            <option value="징크패널">징크패널</option>
+                            <option value="물있는아스팔트">물 있는 아스팔트</option>
+                            <option value="투수성아스팔트">투수성 아스팔트</option>
+                        </select>
+                    </div>
+                    <div class="selection-item">
+                        <label class="selection-label">데이터 2</label>
+                        <select class="selection-dropdown" id="mat_data2Select" onchange="mat_updateCharts()">
+                            <option value="" selected>선택 안 함</option>
+                            <option value="basedata">기준 데이터</option>
+                            <option value="벽돌">벽돌</option>
+                            <option value="대리석">대리석</option>
+                            <option value="GLASS">유리</option>
+                            <option value="징크패널">징크패널</option>
+                            <option value="물있는아스팔트">물 있는 아스팔트</option>
+                            <option value="투수성아스팔트">투수성 아스팔트</option>
+                        </select>
+                    </div>
+                    <div class="selection-item">
+                        <label class="selection-label">데이터 3</label>
+                        <select class="selection-dropdown" id="mat_data3Select" onchange="mat_updateCharts()">
+                            <option value="" selected>선택 안 함</option>
+                            <option value="basedata">기준 데이터</option>
+                            <option value="벽돌">벽돌</option>
+                            <option value="대리석">대리석</option>
+                            <option value="GLASS">유리</option>
+                            <option value="징크패널">징크패널</option>
+                            <option value="물있는아스팔트">물 있는 아스팔트</option>
+                            <option value="투수성아스팔트">투수성 아스팔트</option>
+                        </select>
+                    </div>
+                    <div class="selection-item">
+                        <label class="selection-label">데이터 4</label>
+                        <select class="selection-dropdown" id="mat_data4Select" onchange="mat_updateCharts()">
+                            <option value="" selected>선택 안 함</option>
+                            <option value="basedata">기준 데이터</option>
+                            <option value="벽돌">벽돌</option>
+                            <option value="대리석">대리석</option>
+                            <option value="GLASS">유리</option>
+                            <option value="징크패널">징크패널</option>
+                            <option value="물있는아스팔트">물 있는 아스팔트</option>
+                            <option value="투수성아스팔트">투수성 아스팔트</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div id="mat_statsTable" class="stats-table" style="display:none;">
+                <div class="stats-header">📊 통계 요약</div>
+                <div class="stats-content"></div> </div>
+
+            <div id="mat_chartsContainer"></div>
+        </div>
+
+    </div>
     
     <div id="imageGallery" class="image-gallery">
         <div class="gallery-overlay" onclick="closeGallery()"></div>
@@ -501,6 +574,11 @@
     </div>
 
     <script>
+        
+        // ==============================================
+        // 탭 1 (도시 모델) + 탭 2 (시뮬레이터) 데이터
+        // ==============================================
+
         // '도시 모델 1, 2, 3' 데이터
         const csvDataLibrary = {
             'model1': `Time,T,H
@@ -652,59 +730,474 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
 `
         };
 
-        // [수정됨] 모델별 설명 데이터 (녹지 항목 추가)
         const modelDescriptionData = {
             'model1': {
-                greenery: '', // [수정됨] 하이픈 제거
+                greenery: '',
                 exterior: '대리석 70%, 시멘트 30%',
                 pavement: '일반 아스팔트 100%'
             },
             'model2': {
-                greenery: '', // [수정됨] 하이픈 제거
+                greenery: '',
                 exterior: '유리 26.79%, 시멘트 25.64%, 패널 24.29%, 대리석 23.27%',
                 pavement: '일반 아스팔트 35.9%, 투수성 아스팔트 64.1%'
             },
             'model3': {
-                greenery: '', // [수정됨] 하이픈 제거
+                greenery: '',
                 exterior: '유리 26.79%, 시멘트 25.64%, 패널 24.29%, 대리석 23.27%',
-                pavement: '투수성 아스팔트 38.79%, 일반 아스팔트 31.84%, 물 뿌린 아스팔트 29.37%'
+                pavement: '투수성 아스팔트 38.79%, 일반 아스팔트 31.84%, 물 있는 아스팔트 29.37%'
             }
         };
 
-        // CSV 탭의 모델 이미지 경로
         const modelImageData = {
             'model1': 'img/model1.png',
             'model2': 'img/model2.png',
             'model3': 'img/model3.png'
         };
 
-        // 새 모델에 맞게 색상 지정
         const dataColors = {
-            'model1': { border: 'rgba(34, 211, 238, 0.8)', bg: 'rgba(34, 211, 238, 0.2)' }, // Cyan
-            'model2': { border: 'rgba(16, 185, 129, 0.8)', bg: 'rgba(16, 185, 129, 0.2)' }, // Green
-            'model3': { border: 'rgba(168, 85, 247, 0.8)', bg: 'rgba(168, 85, 247, 0.2)' }  // Purple
+            'model1': { border: 'rgba(34, 211, 238, 0.8)', bg: 'rgba(34, 211, 238, 0.2)' },
+            'model2': { border: 'rgba(16, 185, 129, 0.8)', bg: 'rgba(16, 185, 129, 0.2)' },
+            'model3': { border: 'rgba(168, 85, 247, 0.8)', bg: 'rgba(168, 85, 247, 0.2)' }
         };
 
-        // 새 모델에 맞게 이름 지정
         const dataNames = {
             'model1': '도시 모델 1',
             'model2': '도시 모델 2',
             'model3': '도시 모델 3'
         };
 
-        let parsedDataLibrary = {};
+        const simulatorData = {
+            '시멘트-물 있는 아스팔트-없음': { temp: 28.08, image: 'img/wwo.png' },
+            '시멘트-물 있는 아스팔트-호수': { temp: 26.08, image: 'img/ww-2.png' },
+            '시멘트-아스팔트(일반)-없음': { temp: 28.92, image: 'img/wwx.png' },
+            '시멘트-아스팔트(일반)-호수': { temp: 26.92, image: 'img/w-2.png' },
+            '시멘트-투수성 아스팔트-없음': { temp: 25.02, image: 'img/wt.png' },
+            '시멘트-투수성 아스팔트-호수': { temp: 23.02, image: 'img/wt-2.png' },
+            '대리석-물 있는 아스팔트-없음': { temp: 29.67, image: 'img/dwo.png' },
+            '대리석-물 있는 아스팔트-호수': { temp: 27.67, image: 'img/dw-2.png' },
+            '대리석-아스팔트(일반)-없음': { temp: 30.67, image: 'img/dwx.png' },
+            '대리석-아스팔트(일반)-호수': { temp: 28.67, image: 'img/d-2.png' },
+            '대리석-투수성 아스팔트-없음': { temp: 26.72, image: 'img/dt.png' },
+            '대리석-투수성 아스팔트-호수': { temp: 24.72, image: 'img/dt-2.png' },
+            '유리-물 있는 아스팔트-없음': { temp: 26.92, image: 'img/gwo.png' },
+            '유리-물 있는 아스팔트-호수': { temp: 24.92, image: 'img/gw-2.png' },
+            '유리-아스팔트(일반)-없음': { temp: 27.9, image: 'img/gwx.png' },
+            '유리-아스팔트(일반)-호수': { temp: 25.9, image: 'img/g-2.png' },
+            '유리-투수성 아스팔트-없음': { temp: 24.0, image: 'img/gt.png' },
+            '유리-투수성 아스팔트-호수': { temp: 22.0, image: 'img/gt-2.png' },
+            '징크패널-물 있는 아스팔트-없음': { temp: 29.74, image: 'img/jw-2.png' },
+            '징크패널-물 있는 아스팔트-호수': { temp: 27.74, image: 'img/jwo.png' },
+            '징크패널-아스팔트(일반)-없음': { temp: 30.64, image: 'img/jwx.png' },
+            '징크패널-아스팔트(일반)-호수': { temp: 28.64, image: 'img/j-2.png' },
+            '징크패널-투수성 아스팔트-없음': { temp: 26.74, image: 'img/jt.png' },
+            '징크패널-투수성 아스팔트-호수': { temp: 24.74, image: 'img/jt-2.png' }
+        };
         
-        // CSV 탭의 차트 인스턴스를 배열로 관리
+        // 탭 1 (모델) 용 변수
+        let parsedDataLibrary = {};
         let csvChartInstances = []; 
+
+
+        // ==============================================
+        // 탭 3 (원본 재료) 데이터 (Roh.html에서 가져옴)
+        // ==============================================
+        
+        // 변수명 충돌을 피하기 위해 'mat_' 접두사 사용
+        const mat_csvDataLibrary = {
+            'basedata': `Time,H,T,,
+시간,값1,값2
+오전 1:27:00,48,24.06
+오전 1:31:00,47,24.5
+오전 1:35:00,47,24.06
+오전 1:39:00,48,25.06
+오전 1:43:00,48,24.13
+오전 1:47:00,49,23.13
+오전 1:52:00,50,23.06
+오전 1:56:00,48,24.31
+오전 2:00:00,50,24.5
+오전 2:04:00,48,25.38
+오전 2:08:00,48,25.19
+오전 2:12:00,48,25.31
+오전 2:17:00,49,24.25
+오전 2:21:00,50,23.56
+오전 2:25:00,48,23.88
+오전 2:29:00,49,24.31
+오전 2:33:00,50,24.19
+오전 2:37:00,49,24.69
+오전 2:42:00,50,23.63
+오전 2:46:00,52,23.44
+오전 2:50:00,51,22.69
+오전 2:54:00,52,24.13
+오전 2:58:00,51,24.88
+오전 3:02:00,50,24.63
+오전 3:07:00,50,24.31
+오전 3:11:00,51,24.56
+오전 3:15:00,50,24.25
+오전 3:19:00,53,23.94
+오전 3:23:00,52,23.06
+오전 3:27:00,53,23.19
+오전 3:32:00,52,24.19
+오전 3:36:00,52,24.31
+오전 3:40:00,54,23.5
+오전 3:44:00,53,23.31
+오전 3:48:00,53,23.31
+오전 3:53:00,53,23.88
+오전 3:57:00,54,22.19
+오전 4:01:00,55,22.25
+오전 4:05:00,56,21.88
+오전 4:09:00,56,22.94
+오전 4:13:00,56,23.44
+오전 4:18:00,56,22.75
+오전 4:22:00,55,23.19
+오전 4:26:00,55,22.75
+오전 4:30:00,56,23.31
+오전 4:34:00,58,22
+오전 4:38:00,57,22
+오전 4:43:00,58,21.5`,
+            '벽돌': `00:00.0,34,37.25
+04:00.4,35,35.25
+08:07.2,35,39
+12:18.6,35,38.88
+16:36.3,36,34.94
+20:26.2,38,33.69
+24:13.1,39,38.75
+28:24.5,38,38.38
+32:38.4,38,39.31
+37:41.6,35,41.44
+42:42.9,35,36.63
+46:33.1,37,35.13
+50:22.9,38,35
+54:11.8,37,34.81
+58:08.4,37,35.75
+01:59.4,37,36.5
+05:50.2,39,37.19
+09:38.2,39,34.06
+13:27.8,40,34.13
+17:19.7,38,32.88
+21:08.7,39,31.25
+24:58.6,39,35.81
+28:49.4,39,37
+32:40.3,39,36.75
+36:29.2,38,35.25
+40:20.7,37,37.56
+44:12.8,38,36.19
+48:02.8,41,32.38
+51:57.5,39,32.75
+56:06.5,42,30.13
+00:15.2,41,34.13
+04:21.3,42,32.56
+08:28.5,42,32.63
+12:35.3,42,31.69
+16:42.5,41,32.25
+20:50.5,42,32.5
+24:58.0,42,30.81
+29:05.6,44,29.19
+33:01.5,44,28.94
+36:53.7,45,27.94
+40:39.2,45,29.63
+44:28.0,47,30.56
+48:15.2,46,30.5
+52:03.4,46,30.19
+55:52.8,45,29.5
+59:39.1,46,29.38
+03:31.0,48,27.44
+07:19.5,49,27.25
+11:09.3,50,26.13
+14:57.7,52,25.13
+`,
+            '대리석': `time,H,T
+오후 1:32:00,33,36.06
+오후 1:36:31,31,35.94
+오후 1:41:14,31,39.75
+오후 1:45:58,32,42.81
+오후 1:50:43,33,36.31
+오후 1:55:21,33,40.94
+오후 2:00:05,32,42.19
+오후 2:04:48,32,43.75
+오후 2:09:32,30,44.81
+오후 2:14:15,30,44.75
+오후 2:18:59,33,40.56
+오후 2:23:43,34,40.38
+오후 2:28:27,32,39.25
+오후 2:33:11,32,40.63
+오후 2:37:55,34,41.75
+오후 2:42:39,34,39.06
+오후 2:47:23,34,39.88
+오후 2:52:02,36,35.56
+오후 2:56:44,35,40.06
+오후 3:01:27,33,41.19
+오후 3:06:11,34,41
+오후 3:10:55,34,41.63
+오후 3:15:39,33,41.69
+오후 3:20:17,38,36.5
+오후 3:25:00,36,37
+오후 3:29:19,38,35.5
+오후 3:34:03,34,37.69
+오후 3:38:46,36,37.69
+오후 3:43:25,37,35.81
+오후 3:48:00,36,35.5
+오후 3:52:40,36,35.94
+오후 3:57:15,38,33.94
+오후 4:00:44,39,33.13
+오후 4:04:13,40,31.75
+오후 4:07:40,41,31.25
+오후 4:11:08,40,33
+오후 4:14:36,39,33.5
+오후 4:18:13,39,33.06
+오후 4:21:44,39,33.44
+오후 4:25:15,39,33.06
+오후 4:28:44,41,31.94
+오후 4:32:10,41,31.5
+오후 4:35:38,43,30.56
+오후 4:39:02,42,30.31
+오후 4:42:27,45,27.88
+오후 4:45:53,50,26.31
+`,
+            'GLASS': `00:00.0,28,35.94
+04:08.1,27,35.5
+08:16.5,21,37
+12:25.4,22,36.31
+16:33.5,26,33.94
+20:41.8,29,33.38
+24:50.2,22,36.88
+28:58.7,21,36.88
+33:07.2,24,37.06
+37:15.8,18,37.75
+41:24.5,17,38.88
+45:33.3,25,34.25
+49:41.4,29,33.63
+53:49.7,26,33.81
+57:58.7,26,33.75
+02:06.5,25,34.31
+06:14.8,28,34.44
+10:23.2,28,33.69
+14:31.5,29,34.13
+18:39.8,30,32.06
+22:48.3,33,32.31
+26:56.4,27,34.94
+31:04.8,26,35
+35:13.1,29,33.56
+39:21.5,23,35.56
+43:29.9,25,34.63
+47:38.2,35,30.19
+51:46.3,30,31.5
+55:54.5,34,28.81
+00:02.6,34,30.88
+04:10.7,32,30.88
+08:18.9,33,30.69
+12:27.0,35,29.19
+16:35.0,35,29.13
+20:43.0,35,28.56
+24:51.5,36,27.56
+28:58.9,38,26.56
+33:06.8,41,25.88
+37:14.6,42,26.13
+41:22.5,42,26.31
+45:30.4,40,27.06
+49:38.3,40,27.31
+53:46.2,41,26.56
+57:54.8,44,25.44
+02:01.9,47,24.06
+06:09.5,54,21.88
+10:17.2,54,21.56
+14:24.8,58,20.5
+`,
+            '징크패널': `00:00.0,26,36.75
+04:09.6,17,36.75
+08:19.4,10,41.75
+12:29.4,11,41.25
+16:39.4,10,37.81
+20:49.2,14,36.56
+24:59.2,11,42.94
+29:09.2,11,41.81
+33:19.2,10,44.06
+37:29.2,8,43
+41:39.2,8,44.38
+45:48.9,9,39.81
+49:58.9,12,39
+54:08.8,12,38.69
+58:18.8,13,37.75
+02:28.7,12,38.69
+06:38.7,11,39.94
+10:48.6,12,36.69
+14:58.5,13,39.63
+19:08.4,15,32.25
+23:18.2,18,38.38
+27:28.2,12,41.5
+31:38.2,11,41.06
+35:48.3,11,40.88
+39:58.3,11,41.75
+44:08.3,11,40.56
+48:18.2,19,34.94
+52:28.8,15,36
+56:37.9,22,33.63
+00:47.8,20,37.81
+04:57.7,18,38.25
+09:07.6,17,35.13
+13:17.5,18,36.75
+17:27.4,19,36
+21:37.2,20,36.06
+25:47.9,22,30.5
+29:56.8,28,31
+34:06.6,31,29.56
+38:16.4,31,31.75
+42:26.2,30,32.88
+46:36.6,29,32.75
+50:45.9,30,33.19
+54:55.7,29,32.81
+59:05.5,31,32.5
+03:15.3,35,30.69
+07:25.6,37,29.06
+11:34.8,41,27
+`,
+            '물있는아스팔트': `오후 1:27:00,39,24.06
+오후 1:27:00,39,24.06
+오후 1:27:00,39,24.06
+오후 1:27:00,39,24.06
+오후 1:27:00,39,24.06
+오후 1:27:00,39,24.06
+오후 1:27:00,39,24.06
+오후 1:27:00,39,24.06
+오후 1:27:00,39,24.06
+오후 1:27:00,39,24.06
+오후 1:27:00,39,24.06
+오후 1:27:00,39,24.06
+오후 1:27:00,39,24.06
+오후 1:27:00,39,24.06
+오후 1:27:00,39,24.06
+오후 2:28:51,41,23
+오후 2:32:58,42,23.13
+오후 2:37:06,42,23
+오후 2:41:13,45,23.06
+오후 2:45:21,43,22.31
+오후 2:49:28,43,21.81
+오후 2:53:36,45,22.06
+오후 2:57:44,45,22.94
+오후 3:01:50,45,22.25
+오후 3:05:58,44,22.94
+오후 3:10:06,46,23
+오후 3:14:14,46,22.69
+오후 3:18:20,44,21.56
+오후 3:22:28,45,22.13
+오후 3:26:35,45,21.94
+오후 3:30:43,45,22.25
+오후 3:34:50,46,22.31
+오후 3:38:58,46,22
+오후 3:43:05,48,21.88
+오후 3:47:13,46,21.56
+오후 3:51:20,46,21.38
+오후 3:55:27,47,21.88
+오후 3:59:35,48,21.19
+오후 4:03:42,49,21
+오후 4:07:49,49,20.44
+오후 4:11:57,50,21.06
+오후 4:16:04,51,20.81
+오후 4:20:12,51,20.88
+오후 4:24:19,50,20.81
+오후 4:28:26,51,20.81
+오후 4:32:34,52,20.44
+오후 4:36:41,51,20.31
+오후 4:40:49,52,20.25
+오후 4:44:56,53,19.88
+`,
+            '투수성아스팔트': `time,H,T
+오전 8:53:00,58.2,20.63
+오전 8:55:28,54.6,17.64
+오전 8:57:58,60.8,16.245
+오전 9:00:29,64.9,16.47
+오전 9:02:58,65.5,15.69
+오전 9:05:30,66.7,14.39
+오전 9:08:00,63.4,16.37
+오전 9:10:31,61.7,17.71
+오전 9:13:03,59.8,18.35
+오전 9:15:34,58.2,19.115
+오전 9:18:06,58.2,19.29
+오전 9:20:37,56.3,19.42
+오전 9:23:08,54.6,18.665
+오전 9:25:39,56.1,18.05
+오전 9:28:11,55.7,17.43
+오전 9:30:42,56.2,17.9
+오전 9:33:14,62.7,16.445
+오전 9:35:46,66.8,16.42
+오전 9:38:19,62.8,16.145
+오전 9:40:50,65,15.59
+오전 9:43:22,67,15.175
+오전 9:45:56,64,16.59
+오전 9:48:27,64,17.34
+오전 9:51:01,61.1,17.495
+오전 9:53:33,62.2,16.77
+오전 9:56:06,64.9,16.575
+오전 9:58:39,63.6,16.805
+오전 10:01:22,60.7,17.02
+오전 10:04:11,60.7,17.055
+오전 10:07:00,60.4,17.11
+오전 10:09:47,62.2,16.95
+오전 10:12:37,66.2,16.055
+오전 10:15:26,69.2,15.105
+오전 10:18:15,68.2,14.71
+오전 10:21:05,64.9,16.4
+오전 10:23:55,61.6,18.02
+오전 10:26:44,61.7,17.32
+오전 10:29:14,65.5,15.39
+오전 10:31:43,70.5,13.78
+오전 10:34:15,70.4,14.715
+오전 10:36:45,73.4,14.39
+오전 10:39:18,72.9,14.575
+오전 10:41:49,72.4,15.265
+오전 10:44:19,68.8,16.05
+오전 10:46:51,68.7,16.28
+오전 10:49:22,71.4,14.19
+오전 10:51:54,71.2,15.18
+오전 10:54:25,69.3,15.18
+오전 10:56:59,68,14.61
+`
+        };
+
+        const mat_dataColors = {
+            'basedata': { border: 'rgba(255, 255, 255, 0.8)', bg: 'rgba(255, 255, 255, 0.1)' },
+            '벽돌': { border: 'rgba(239, 68, 68, 0.8)', bg: 'rgba(239, 68, 68, 0.2)' },
+            '대리석': { border: 'rgba(245, 158, 11, 0.8)', bg: 'rgba(245, 158, 11, 0.2)' },
+            'GLASS': { border: 'rgba(34, 211, 238, 0.8)', bg: 'rgba(34, 211, 238, 0.2)' },
+            '징크패널': { border: 'rgba(168, 85, 247, 0.8)', bg: 'rgba(168, 85, 247, 0.2)' },
+            '물있는아스팔트': { border: 'rgba(16, 185, 129, 0.8)', bg: 'rgba(16, 185, 129, 0.2)' },
+            '투수성아스팔트': { border: 'rgba(251, 191, 36, 0.8)', bg: 'rgba(251, 191, 36, 0.2)' }
+        };
+
+        const mat_dataNames = {
+            'basedata': '기준 데이터',
+            '벽돌': '벽돌',
+            '대리석': '대리석',
+            'GLASS': '유리',
+            '징크패널': '징크패널',
+            '물있는아스팔트': '물 있는 아스팔트',
+            '투수성아스팔트': '투수성 아스팔트'
+        };
+
+        // 탭 3 (재료) 용 변수
+        let mat_parsedDataLibrary = {};
+        let mat_csvChartInstances = [];
+
+
+        // ==============================================
+        // 공통 탭 스크립트
+        // ==============================================
 
         function switchTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(`${tabName}Tab`).classList.add('active');
+            
+            let targetTabId = '';
+            if (tabName === 'csv') targetTabId = 'csvTab';
+            else if (tabName === 'simulator') targetTabId = 'simulatorTab';
+            else if (tabName === 'material') targetTabId = 'materialTab';
+            
+            document.getElementById(targetTabId).classList.add('active');
             document.querySelector(`.tab-button[onclick="switchTab('${tabName}')"]`).classList.add('active');
         }
-        
-        // --- CSV 데이터 분석 탭 ---
+
+        // ==============================================
+        // 탭 1 (도시 모델) 스크립트
+        // ==============================================
 
         function onDropdownChange(index) {
             const modelKey = document.getElementById(`data${index}Select`).value;
@@ -712,34 +1205,32 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
             updateCharts();
         }
 
-        // [수정됨] updatePanelContent 함수 (녹지 항목 업데이트 로직 추가)
         function updatePanelContent(index, modelKey) {
             const imgEl = document.getElementById(`modelImage${index}`);
             const titleEl = document.getElementById(`modelDescTitle${index}`);
-            const greeneryEl = document.getElementById(`modelDescGreenery${index}`); // 녹지 요소 선택
+            const greeneryEl = document.getElementById(`modelDescGreenery${index}`);
             const exteriorEl = document.getElementById(`modelDescExterior${index}`);
             const pavementEl = document.getElementById(`modelDescPavement${index}`);
             
             const descData = modelDescriptionData[modelKey];
-            const imgPath = modelImageData[modelKey]; // 이미지 경로 가져오기
+            const imgPath = modelImageData[modelKey];
             
             if (descData && imgPath) {
                 imgEl.src = imgPath; 
                 titleEl.textContent = `모델 구성 (${dataNames[modelKey]})`;
-                // [수정됨] 하이픈 대신 빈 문자열('')' 사용
-                greeneryEl.textContent = descData.greenery || ''; // 녹지 데이터 업데이트
+                greeneryEl.textContent = descData.greenery || '';
                 exteriorEl.textContent = descData.exterior;
                 pavementEl.textContent = descData.pavement;
             } else {
-                imgEl.src = 'https://placehold.co/600x400/1e293b/94a3b8?text=Image+Not+Found'; // 기본 이미지
+                imgEl.src = 'https://placehold.co/600x400/1e293b/94a3b8?text=Image+Not+Found';
                 titleEl.textContent = '모델 구성';
-                greeneryEl.textContent = ''; // 녹지 리셋
-                exteriorEl.textContent = '-'; // [수정됨] 기존 하이픈 유지
-                pavementEl.textContent = '-'; // [수정됨] 기존 하이픈 유지
+                greeneryEl.textContent = '';
+                exteriorEl.textContent = '-';
+                pavementEl.textContent = '-';
             }
         }
 
-        // 'Time,T,H' 파서 (습도 포함)
+        // 탭 1용 CSV 파서 (Time,T,H)
         function parseCSV(csvText) {
             const lines = csvText.trim().replace(/\r/g, "").split('\n');
             const hasHeader = lines[0].toLowerCase().includes('time');
@@ -755,16 +1246,18 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
                     };
                 }
                 return null;
-            }).filter(row => row && row['시간'] && row['온도'] && row['습도']); // 습도도 확인
+            }).filter(row => row && row['시간'] && row['온도'] && row['습도']);
 
             return { data, headers: ['시간', '온도', '습도'] };
         }
 
+        // 탭 1용 평균 계산
         function calculateAverage(data, key) {
             const values = data.map(row => parseFloat(row[key])).filter(v => !isNaN(v));
             return values.length > 0 ? values.reduce((a, b) => a + b, 0) / values.length : 0;
         }
 
+        // 탭 1용 데이터 길이 맞추기
         function stretchData(sourceArray, targetLength) {
             if (!sourceArray || sourceArray.length === 0) return new Array(targetLength).fill(null);
             if (sourceArray.length === targetLength) return sourceArray;
@@ -794,6 +1287,7 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
             return stretched;
         }
 
+        // 탭 1용 차트 업데이트
         function updateCharts() {
             const selectedData = [];
             for (let i = 1; i <= 3; i++) {
@@ -809,7 +1303,7 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
             renderCharts(selectedData);
         }
 
-        // 습도 열 복원
+        // 탭 1용 통계 테이블
         function updateStatsTable(selectedData) {
             const statsTable = document.getElementById('statsTable');
             const statsContent = statsTable.querySelector('.stats-content');
@@ -823,36 +1317,35 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
             
             selectedData.forEach(item => {
                 const avgTemp = calculateAverage(item.data.data, '온도');
-                const avgHumidity = calculateAverage(item.data.data, '습도'); // 습도 계산 복원
+                const avgHumidity = calculateAverage(item.data.data, '습도');
                 tableHTML += `
                     <tr>
                         <td><strong>${dataNames[item.key]}</strong></td>
                         <td>${avgTemp.toFixed(2)}</td>
                         <td>${avgHumidity.toFixed(2)}</td>
                     </tr>
-                `; // 습도 <td> 복원
+                `;
             });
             tableHTML += '</tbody></table>';
             statsContent.innerHTML = tableHTML;
         }
 
-        // 온도, 습도 차트 모두 생성 + 차트 파괴 로직
+        // 탭 1용 차트 렌더링
         function renderCharts(selectedData) {
             const chartsContainer = document.getElementById('chartsContainer');
             
-            // 기존 차트 인스턴스 파괴
             csvChartInstances.forEach(chart => chart.destroy());
-            csvChartInstances = []; // 배열 비우기
+            csvChartInstances = [];
             
-            chartsContainer.innerHTML = ''; // HTML 컨테이너 비우기
+            chartsContainer.innerHTML = '';
             if (selectedData.length === 0) return;
             
-            // '온도', '습도' 차트 모두 생성
             ['온도', '습도'].forEach(metric => {
                 createChart(metric, selectedData);
             });
         }
 
+        // 탭 1용 차트 생성
         function createChart(metric, selectedData) {
             const style = getComputedStyle(document.documentElement);
             const textSecondaryColor = style.getPropertyValue('--text-secondary').trim();
@@ -901,66 +1394,34 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
                         y: { 
                             ticks: { color: textSecondaryColor }, 
                             grid: { color: 'rgba(71, 85, 105, 0.3)' },
-                            min: metric === '습도' ? 10 : 0, // [수정] 습도일 때 Y축 최소 10, 그 외 0
-                            max: metric === '온도' ? 50 : 80  // [수정] 온도일 때 50, 습도일 때 80
+                            min: metric === '습도' ? 10 : 0,
+                            max: metric === '온도' ? 50 : 80
                         }
                     },
                     plugins: { legend: { labels: { color: textPrimaryColor } } }
                 }
             });
             
-            csvChartInstances.push(newChart); // 배열에 추가
+            csvChartInstances.push(newChart);
         }
 
-        // --- 시뮬레이터 섹션 ---
-        
-        // [수정됨] simulatorData: 요청하신 새 온도로 변경
-        const simulatorData = {
-            '시멘트-물 뿌린 아스팔트-없음': { temp: 28.08, image: 'img/wwo.png' },
-            '시멘트-물 뿌린 아스팔트)-호수': { temp: 26.08, image: 'img/ww-2.png' },
-            '시멘트-아스팔트(일반)-없음': { temp: 28.92, image: 'img/wwx.png' },
-            '시멘트-아스팔트(일반)-호수': { temp: 26.92, image: 'img/w-2.png' },
-            '시멘트-투수성 아스팔트-없음': { temp: 25.02, image: 'img/wt.png' },
-            '시멘트-투수성 아스팔트-호수': { temp: 23.02, image: 'img/wt-2.png' },
-            
-            '대리석-물 뿌린 아스팔트-없음': { temp: 29.67, image: 'img/dwo.png' },
-            '대리석-물 뿌린 아스팔트-호수': { temp: 27.67, image: 'img/dw-2.png' },
-            '대리석-아스팔트(일반)-없음': { temp: 30.67, image: 'img/dwx.png' },
-            '대리석-아스팔트(일반)-호수': { temp: 28.67, image: 'img/d-2.png' },
-            '대리석-투수성 아스팔트-없음': { temp: 26.72, image: 'img/dt.png' },
-            '대리석-투수성 아스팔트-호수': { temp: 24.72, image: 'img/dt-2.png' },
-            
-            '유리-물 뿌린 아스팔트-없음': { temp: 26.92, image: 'img/gwo.png' },
-            '유리-물 뿌린 아스팔트-호수': { temp: 24.92, image: 'img/gw-2.png' }, // [수정됨] 쉼표 추가
-            '유리-아스팔트(일반)-없음': { temp: 27.9, image: 'img/gwx.png' },
-            '유리-아스팔트(일반)-호수': { temp: 25.9, image: 'img/g-2.png' },
-            '유리-투수성 아스팔트-없음': { temp: 24.0, image: 'img/gt.png' },
-            '유리-투수성 아스팔트-호수': { temp: 22.0, image: 'img/gt-2.png' },
+        // ==============================================
+        // 탭 2 (시뮬레이터) 스크립트
+        // ==============================================
 
-            '징크패널-물 뿌린 아스팔트-없음': { temp: 29.74, image: 'img/jw-2.png' },
-            '징크패널-물 뿌린 아스팔트-호수': { temp: 27.74, image: 'img/jwo.png' },
-            '징크패널-아스팔트(일반)-없음': { temp: 30.64, image: 'img/jwx.png' },
-            '징크패널-아스팔트(일반)-호수': { temp: 28.64, image: 'img/j-2.png' },
-            '징크패널-투수성 아스팔트-없음': { temp: 26.74, image: 'img/jt.png' },
-            '징크패널-투수성 아스팔트-호수': { temp: 24.74, image: 'img/jt-2.png' }
-        };
-
-        // [이전 수정] updateSimulator가 3개의 드롭다운에서 값을 읽도록 변경
         function updateSimulator() {
             const key = `${document.getElementById('option1').value}-${document.getElementById('option2').value}-${document.getElementById('option3').value}`;
             const data = simulatorData[key];
             if (!data) return;
 
-            // 1. 이미지 업데이트
             const imgElement = document.getElementById('displayImage');
             imgElement.style.opacity = '0';
             setTimeout(() => {
-                imgElement.src = data.image; // 이미지 경로 설정
+                imgElement.src = data.image;
                 imgElement.alt = key;
                 imgElement.style.opacity = '1';
             }, 300);
             
-            // 2. 요약 온도 업데이트
             animateTemperature(document.getElementById('temperatureValue'), data.temp);
             updateTemperatureColor(document.getElementById('tempDisplay'), data.temp);
         }
@@ -984,22 +1445,233 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
             }, 1000 / frameRate);
         }
 
-        // [이전 수정] 30.5도 이상을 기준으로 색상을 변경합니다.
         function updateTemperatureColor(element, temp) {
             let gradient;
-            if (temp <= 26) { // 26도 이하: 진한 파란색
+            if (temp <= 26) {
                 gradient = 'linear-gradient(135deg, rgba(59, 130, 246, 0.8) 0%, rgba(96, 165, 250, 0.8) 100%)';
-            } else if (temp < 30) { // 26초과 ~ 30미만: 녹색
+            } else if (temp < 30) {
                 gradient = 'linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(52, 211, 153, 0.2) 100%)';
-            } else if (temp < 30.5) { // 30이상 ~ 30.5미만: 주황색
+            } else if (temp < 30.5) {
                 gradient = 'linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(251, 191, 36, 0.2) 100%)';
-            } else { // 30.5도 이상: 진한 빨간색
+            } else {
                 gradient = 'linear-gradient(135deg, rgba(239, 68, 68, 0.8) 0%, rgba(248, 113, 113, 0.8) 100%)';
             }
             element.style.background = gradient;
         }
         
-        // [이전 수정] 갤러리 기능 (24개 아이템을 순환함)
+        // ==============================================
+        // 탭 3 (원본 재료) 스크립트 (Roh.html에서 가져옴)
+        // ==============================================
+        
+        // 탭 3용 CSV 파서 (Roh.html의 파서)
+        function mat_parseCSV(csvText) {
+            const lines = csvText.trim().replace(/\r/g, "").split('\n');
+            const firstLine = lines[0].toLowerCase();
+            const hasHeader = firstLine.includes('time') || firstLine.includes('h') || firstLine.includes('t');
+            const startIndex = hasHeader ? 1 : 0;
+            
+            const data = lines.slice(startIndex).map(line => {
+                const values = line.split(',');
+                if (values.length >= 3) {
+                    return {
+                        '시간': values[0] ? values[0].trim() : '',
+                        '습도': values[1] ? values[1].trim() : '',
+                        '온도': values[2] ? values[2].trim() : ''
+                    };
+                }
+                return null;
+            }).filter(row => row && row['시간'] && row['온도'] && row['습도']);
+
+            return { data, headers: ['시간', '온도', '습도'] };
+        }
+
+        // 탭 3용 평균 계산
+        function mat_calculateAverage(data, key) {
+            const values = data.map(row => parseFloat(row[key])).filter(v => !isNaN(v));
+            return values.length > 0 ? values.reduce((a, b) => a + b, 0) / values.length : 0;
+        }
+        
+        // 탭 3용 데이터 길이 맞추기
+        function mat_stretchData(sourceArray, targetLength) {
+            if (!sourceArray || sourceArray.length === 0) {
+                return new Array(targetLength).fill(null);
+            }
+            if (sourceArray.length === targetLength) {
+                return sourceArray;
+            }
+
+            const stretched = new Array(targetLength);
+            const sourceLength = sourceArray.length;
+            const scaleFactor = (sourceLength - 1) / (targetLength - 1);
+
+            for (let i = 0; i < targetLength; i++) {
+                const sourceIndexFloat = i * scaleFactor;
+                const index1 = Math.floor(sourceIndexFloat);
+                const index2 = Math.ceil(sourceIndexFloat);
+                const fraction = sourceIndexFloat - index1;
+
+                if (index1 >= sourceLength - 1) {
+                    stretched[i] = sourceArray[sourceLength - 1];
+                    continue;
+                }
+
+                if (index1 === index2) {
+                    stretched[i] = sourceArray[index1];
+                } else {
+                    const val1 = sourceArray[index1];
+                    const val2 = sourceArray[index2];
+                    stretched[i] = val1 + (val2 - val1) * fraction;
+                }
+            }
+            return stretched;
+        }
+
+        // 탭 3용 차트 업데이트
+        function mat_updateCharts() {
+            const selectedData = [];
+            
+            for (let i = 1; i <= 4; i++) {
+                // 'mat_data' ID에서 읽어옴
+                const selectValue = document.getElementById(`mat_data${i}Select`).value;
+                if (selectValue && mat_parsedDataLibrary[selectValue]) {
+                    selectedData.push({
+                        key: selectValue,
+                        data: mat_parsedDataLibrary[selectValue]
+                    });
+                }
+            }
+            
+            // 'mat_' 함수들 호출
+            mat_updateStatsTable(selectedData);
+            mat_renderCharts(selectedData);
+        }
+
+        // 탭 3용 통계 테이블
+        function mat_updateStatsTable(selectedData) {
+            // 'mat_statsTable' ID에 씀
+            const statsTable = document.getElementById('mat_statsTable');
+            const statsContent = statsTable.querySelector('.stats-content');
+            
+            if (selectedData.length === 0) {
+                statsTable.style.display = 'none';
+                return;
+            }
+
+            statsTable.style.display = 'block';
+
+            let tableHTML = '<table><thead><tr><th>데이터</th><th>평균 온도 (°C)</th><th>평균 습도 (%)</th></tr></thead><tbody>';
+            
+            selectedData.forEach(item => {
+                const avgTemp = mat_calculateAverage(item.data.data, '온도');
+                const avgHumidity = mat_calculateAverage(item.data.data, '습도');
+                tableHTML += `
+                    <tr>
+                        <td><strong>${mat_dataNames[item.key]}</strong></td>
+                        <td>${avgTemp.toFixed(2)}</td>
+                        <td>${avgHumidity.toFixed(2)}</td>
+                    </tr>
+                `;
+            });
+            
+            tableHTML += '</tbody></table>';
+            statsContent.innerHTML = tableHTML;
+        }
+
+        // 탭 3용 차트 렌더링
+        function mat_renderCharts(selectedData) {
+            // 'mat_chartsContainer' ID에 씀
+            const chartsContainer = document.getElementById('mat_chartsContainer');
+            
+            mat_csvChartInstances.forEach(chart => chart.destroy());
+            mat_csvChartInstances = [];
+
+            chartsContainer.innerHTML = '';
+
+            if (selectedData.length === 0) {
+                return;
+            }
+
+            ['온도', '습도'].forEach(metric => {
+                mat_createChart(metric, selectedData);
+            });
+        }
+
+        // 탭 3용 차트 생성
+        function mat_createChart(metric, selectedData) {
+            const style = getComputedStyle(document.documentElement);
+            const textSecondaryColor = style.getPropertyValue('--text-secondary').trim();
+            const textPrimaryColor = style.getPropertyValue('--text-primary').trim();
+
+            const container = document.createElement('div');
+            container.className = 'chart-container';
+            container.innerHTML = `<div class="chart-title">${metric === '온도' ? '🌡️' : '💧'} ${metric} 비교</div>`;
+            const canvas = document.createElement('canvas');
+            container.appendChild(canvas);
+            // 'mat_chartsContainer' ID에 추가
+            document.getElementById('mat_chartsContainer').appendChild(container);
+
+            const maxDataLength = Math.max(...selectedData.map(item => 
+                item.data.data.map(r => parseFloat(r[metric])).filter(v => !isNaN(v)).length
+            ));
+
+            const chartLabels = Array.from({ length: maxDataLength }, (_, i) => i + 1);
+
+            const datasets = selectedData.map(item => {
+                const values = item.data.data.map(r => parseFloat(r[metric])).filter(v => !isNaN(v));
+                const stretchedValues = mat_stretchData(values, maxDataLength);
+                const colors = mat_dataColors[item.key]; // 'mat_' 색상표 사용
+
+                return {
+                    label: mat_dataNames[item.key], // 'mat_' 이름표 사용
+                    data: stretchedValues,
+                    borderColor: colors.border,
+                    backgroundColor: colors.bg,
+                    borderWidth: 2,
+                    tension: 0.4,
+                    pointRadius: 0,
+                    fill: true
+                };
+            });
+
+            const newChart = new Chart(canvas, {
+                type: 'line',
+                data: { labels: chartLabels, datasets: datasets },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { 
+                            ticks: { color: textSecondaryColor }, 
+                            grid: { color: 'rgba(71, 85, 105, 0.3)' },
+                            title: {
+                                display: true,
+                                text: '데이터 순서',
+                                color: textSecondaryColor
+                            }
+                        },
+                        y: { 
+                            ticks: { color: textSecondaryColor }, 
+                            grid: { color: 'rgba(71, 85, 105, 0.3)' },
+                            min: 0,
+                            max: metric === '온도' ? 50 : 100 // 재료 탭은 Y축 최대값 다름
+                        }
+                    },
+                    plugins: { 
+                        legend: { 
+                            labels: { color: textPrimaryColor } 
+                        } 
+                    }
+                }
+            });
+
+            mat_csvChartInstances.push(newChart); // 'mat_' 차트 배열에 추가
+        }
+
+
+        // ==============================================
+        // 공통 갤러리 스크립트
+        // ==============================================
+        
         const galleryItems = Object.keys(simulatorData);
         let currentGalleryIndex = 0;
 
@@ -1031,9 +1703,7 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
         function updateGalleryContent() {
             const key = galleryItems[currentGalleryIndex];
             const data = simulatorData[key];
-            document.getElementById('galleryImage').src = data.image; // 이미지 경로 설정
-            
-            // [이전 수정] 3개 변수 모두 표시되도록 .replace(/-/g, ' + ') 사용
+            document.getElementById('galleryImage').src = data.image;
             document.getElementById('galleryTitle').textContent = key.replace(/-/g, ' + ');
             document.getElementById('galleryTemp').textContent = `${data.temp.toFixed(1)}°C`;
         }
@@ -1044,20 +1714,34 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
             if (e.key === 'ArrowRight') navigateGallery(1);
         }
 
+        // ==============================================
+        // 페이지 초기화
+        // ==============================================
+
         function initialize() {
+            // 탭 1 (모델) 데이터 파싱
             for (const key in csvDataLibrary) {
                 parsedDataLibrary[key] = parseCSV(csvDataLibrary[key]);
                 parsedDataLibrary[key].fileName = dataNames[key];
             }
             
-            // 3개 패널의 초기 상태 설정
+            // 탭 3 (재료) 데이터 파싱
+            for (const key in mat_csvDataLibrary) {
+                mat_parsedDataLibrary[key] = mat_parseCSV(mat_csvDataLibrary[key]);
+                mat_parsedDataLibrary[key].fileName = mat_dataNames[key];
+            }
+            
+            // 탭 1 초기화
             updatePanelContent(1, document.getElementById('data1Select').value);
             updatePanelContent(2, document.getElementById('data2Select').value);
             updatePanelContent(3, document.getElementById('data3Select').value);
             updateCharts();
             
-            // 시뮬레이터 초기화
+            // 탭 2 (시뮬레이터) 초기화
             updateSimulator();
+
+            // 탭 3 (재료) 초기화
+            mat_updateCharts();
         }
 
         window.addEventListener('DOMContentLoaded', initialize);
