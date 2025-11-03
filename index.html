@@ -12,7 +12,7 @@
             --card-bg: rgba(30, 41, 59, 0.8);
             --border-color: rgba(148, 163, 184, 0.2);
             --text-primary: #e2e8f0;
-            --text-secondary: #94a3b8;
+            --text-secondary: #94a3b8; /* 이 색상(연한 회색)이 적용됩니다 */
             --accent-cyan: #22d3ee;
             --accent-green: #10b981;
             --accent-purple: #a855f7;
@@ -217,6 +217,16 @@
             min-height: 2.2rem;
         }
 
+        /* [CSS 추가] 요청하신 문구를 위한 스타일 */
+        .model-note {
+            font-size: 0.875rem;
+            color: var(--text-secondary); /* 연한 회색 */
+            font-style: italic; /* 기울임꼴 */
+            margin-top: 1rem; /* 위쪽 여백 */
+            line-height: 1.4;
+            word-break: keep-all;
+        }
+
 
         .chart-container {
             background: var(--card-bg);
@@ -351,6 +361,9 @@
                                 <span class="model-desc-label">바닥재(40%)</span>
                                 <span id="modelDescPavement1" class="model-desc-content">-</span>
                             </div>
+                            <p class="model-note">
+                                * 건물 외장재와 바닥재 종류에 따른 도시 온도 상세 분석을 위해, 도시 구성 요소의 비율(녹지 20%, 건물 외장재 40%, 바닥재 40%)을 통제변인으로 설정함.
+                            </p>
                         </div>
                     </div>
 
@@ -381,6 +394,9 @@
                                 <span class="model-desc-label">바닥재(40%)</span>
                                 <span id="modelDescPavement2" class="model-desc-content">-</span>
                             </div>
+                            <p class="model-note">
+                                * 건물 외장재와 바닥재 종류에 따른 도시 온도 상세 분석을 위해, 도시 구성 요소의 비율(녹지 20%, 건물 외장재 40%, 바닥재 40%)을 통제변인으로 설정함.
+                            </p>
                         </div>
                     </div>
 
@@ -411,6 +427,9 @@
                                 <span class="model-desc-label">바닥재(40%)</span>
                                 <span id="modelDescPavement3" class="model-desc-content">-</span>
                             </div>
+                            <p class="model-note">
+                                * 건물 외장재와 바닥재 종류에 따른 도시 온도 상세 분석을 위해, 도시 구성 요소의 비율(녹지 20%, 건물 외장재 40%, 바닥재 40%)을 통제변인으로 설정함.
+                            </p>
                         </div>
                     </div>
 
@@ -898,32 +917,32 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
         // [수정됨] simulatorData: 요청하신 새 온도로 변경
         const simulatorData = {
             '시멘트-물 뿌린 아스팔트-없음': { temp: 28.08, image: 'img/wwo.png' },
-            '시멘트-물 뿌린 아스팔트)-호수': { temp: 26.08, image: 'img/wwo.png' },
+            '시멘트-물 뿌린 아스팔트)-호수': { temp: 26.08, image: 'img/ww-2.png' },
             '시멘트-아스팔트(일반)-없음': { temp: 28.92, image: 'img/wwx.png' },
-            '시멘트-아스팔트(일반)-호수': { temp: 26.92, image: 'img/wwx.png' },
+            '시멘트-아스팔트(일반)-호수': { temp: 26.92, image: 'img/w-2.png' },
             '시멘트-투수성 아스팔트-없음': { temp: 25.02, image: 'img/wt.png' },
-            '시멘트-투수성 아스팔트-호수': { temp: 23.02, image: 'img/wt.png' },
+            '시멘트-투수성 아스팔트-호수': { temp: 23.02, image: 'img/wt-2.png' },
             
             '대리석-물 뿌린 아스팔트-없음': { temp: 29.67, image: 'img/dwo.png' },
-            '대리석-물 뿌린 아스팔트-호수': { temp: 27.67, image: 'img/dwo.png' },
+            '대리석-물 뿌린 아스팔트-호수': { temp: 27.67, image: 'img/dw-2.png' },
             '대리석-아스팔트(일반)-없음': { temp: 30.67, image: 'img/dwx.png' },
-            '대리석-아스팔트(일반)-호수': { temp: 28.67, image: 'img/dwx.png' },
+            '대리석-아스팔트(일반)-호수': { temp: 28.67, image: 'img/d-2.png' },
             '대리석-투수성 아스팔트-없음': { temp: 26.72, image: 'img/dt.png' },
-            '대리석-투수성 아스팔트-호수': { temp: 24.72, image: 'img/dt.png' },
+            '대리석-투수성 아스팔트-호수': { temp: 24.72, image: 'img/dt-2.png' },
             
             '유리-물 뿌린 아스팔트-없음': { temp: 26.92, image: 'img/gwo.png' },
-            '유리-물 뿌린 아스팔트-호수': { temp: 24.92, image: 'img/gwo.png' }, // [수정됨] 쉼표 추가
+            '유리-물 뿌린 아스팔트-호수': { temp: 24.92, image: 'img/gw-2.png' }, // [수정됨] 쉼표 추가
             '유리-아스팔트(일반)-없음': { temp: 27.9, image: 'img/gwx.png' },
-            '유리-아스팔트(일반)-호수': { temp: 25.9, image: 'img/gwx.png' },
+            '유리-아스팔트(일반)-호수': { temp: 25.9, image: 'img/g-2.png' },
             '유리-투수성 아스팔트-없음': { temp: 24.0, image: 'img/gt.png' },
-            '유리-투수성 아스팔트-호수': { temp: 22.0, image: 'img/gt.png' },
+            '유리-투수성 아스팔트-호수': { temp: 22.0, image: 'img/gt-2.png' },
 
-            '징크패널-물 뿌린 아스팔트-없음': { temp: 29.74, image: 'img/jwo.png' },
+            '징크패널-물 뿌린 아스팔트-없음': { temp: 29.74, image: 'img/jw-2.png' },
             '징크패널-물 뿌린 아스팔트-호수': { temp: 27.74, image: 'img/jwo.png' },
             '징크패널-아스팔트(일반)-없음': { temp: 30.64, image: 'img/jwx.png' },
-            '징크패널-아스팔트(일반)-호수': { temp: 28.64, image: 'img/jwx.png' },
+            '징크패널-아스팔트(일반)-호수': { temp: 28.64, image: 'img/j-2.png' },
             '징크패널-투수성 아스팔트-없음': { temp: 26.74, image: 'img/jt.png' },
-            '징크패널-투수성 아스팔트-호수': { temp: 24.74, image: 'img/jt.png' }
+            '징크패널-투수성 아스팔트-호수': { temp: 24.74, image: 'img/jt-2.png' }
         };
 
         // [이전 수정] updateSimulator가 3개의 드롭다운에서 값을 읽도록 변경
