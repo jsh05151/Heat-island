@@ -340,11 +340,15 @@
                         <div class="model-description-panel">
                             <div class="model-desc-title" id="modelDescTitle1">모델 구성</div>
                             <div class="model-desc-line">
-                                <span class="model-desc-label">외장재:</span>
+                                <span class="model-desc-label">녹지(20%)</span>
+                                <span id="modelDescGreenery1" class="model-desc-content"></span>
+                            </div>
+                            <div class="model-desc-line">
+                                <span class="model-desc-label">외장재(40%)</span>
                                 <span id="modelDescExterior1" class="model-desc-content">-</span>
                             </div>
                             <div class="model-desc-line">
-                                <span class="model-desc-label">바닥재:</span>
+                                <span class="model-desc-label">바닥재(40%)</span>
                                 <span id="modelDescPavement1" class="model-desc-content">-</span>
                             </div>
                         </div>
@@ -366,11 +370,15 @@
                         <div class="model-description-panel">
                             <div class="model-desc-title" id="modelDescTitle2">모델 구성</div>
                             <div class="model-desc-line">
-                                <span class="model-desc-label">외장재:</span>
+                                <span class="model-desc-label">녹지(20%)</span>
+                                <span id="modelDescGreenery2" class="model-desc-content"></span>
+                            </div>
+                            <div class="model-desc-line">
+                                <span class="model-desc-label">외장재(40%)</span>
                                 <span id="modelDescExterior2" class="model-desc-content">-</span>
                             </div>
                             <div class="model-desc-line">
-                                <span class="model-desc-label">바닥재:</span>
+                                <span class="model-desc-label">바닥재(40%)</span>
                                 <span id="modelDescPavement2" class="model-desc-content">-</span>
                             </div>
                         </div>
@@ -392,11 +400,15 @@
                         <div class="model-description-panel">
                             <div class="model-desc-title" id="modelDescTitle3">모델 구성</div>
                             <div class="model-desc-line">
-                                <span class="model-desc-label">외장재:</span>
+                                <span class="model-desc-label">녹지(20%)</span>
+                                <span id="modelDescGreenery3" class="model-desc-content"></span>
+                            </div>
+                            <div class="model-desc-line">
+                                <span class="model-desc-label">외장재(40%)</span>
                                 <span id="modelDescExterior3" class="model-desc-content">-</span>
                             </div>
                             <div class="model-desc-line">
-                                <span class="model-desc-label">바닥재:</span>
+                                <span class="model-desc-label">바닥재(40%)</span>
                                 <span id="modelDescPavement3" class="model-desc-content">-</span>
                             </div>
                         </div>
@@ -417,7 +429,7 @@
             <div id="singleSimulator" class="simulator-container">
                 <div class="control-panel">
                      <div class="dropdown-section">
-                        <label class="dropdown-label">건축 외장재</label>
+                        <label class="dropdown-label">건물 외장재</label>
                         <select class="dropdown" id="option1" onchange="updateSimulator()">
                             <option value="시멘트">시멘트</option>
                             <option value="대리석">대리석</option>
@@ -426,20 +438,29 @@
                         </select>
                     </div>
                     <div class="dropdown-section">
-                        <label class="dropdown-label">도로 포장재</label>
+                        <label class="dropdown-label">바닥재</label>
                         <select class="dropdown" id="option2" onchange="updateSimulator()">
-                            <option value="아스팔트(물)">아스팔트(물)</option>
+                            <option value="물 뿌린 아스팔트">물 뿌린 아스팔트</option>
                             <option value="아스팔트(일반)">아스팔트(일반)</option>
                             <option value="투수성 아스팔트">투수성 아스팔트</option>
                         </select>
                     </div>
+                    
+                    <div class="dropdown-section">
+                        <label class="dropdown-label">자연환경</label>
+                        <select class="dropdown" id="option3" onchange="updateSimulator()">
+                            <option value="호수">호수</option>
+                            <option value="없음">없음</option>
+                        </select>
+                    </div>
+                    
                     <div id="tempDisplay" class="temperature-display">
                         <div class="temperature-label">예상 온도</div>
                         <div class="temperature-value" id="temperatureValue">25.0°C</div>
                     </div>
                 </div>
                 <div class="display-panel">
-                    <img id="displayImage" src="img/wwo.png" alt="시멘트-아스팔트(물)" class="display-image">
+                    <img id="displayImage" src="img/wwo.png" alt="시멘트-물 뿌린 아스팔트-호수" class="display-image">
                 </div>
             </div>
 
@@ -612,19 +633,22 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
 `
         };
 
-        // 모델별 설명 데이터
+        // [수정됨] 모델별 설명 데이터 (녹지 항목 추가)
         const modelDescriptionData = {
             'model1': {
+                greenery: '', // [수정됨] 하이픈 제거
                 exterior: '대리석 70%, 시멘트 30%',
                 pavement: '일반 아스팔트 100%'
             },
             'model2': {
+                greenery: '', // [수정됨] 하이픈 제거
                 exterior: '유리 26.79%, 시멘트 25.64%, 패널 24.29%, 대리석 23.27%',
                 pavement: '일반 아스팔트 35.9%, 투수성 아스팔트 64.1%'
             },
             'model3': {
+                greenery: '', // [수정됨] 하이픈 제거
                 exterior: '유리 26.79%, 시멘트 25.64%, 패널 24.29%, 대리석 23.27%',
-                pavement: '투수성 아스팔트 38.79%, 아스팔트 일반 31.84%, 아스팔트 물 29.37%'
+                pavement: '투수성 아스팔트 38.79%, 일반 아스팔트 31.84%, 물 뿌린 아스팔트 29.37%'
             }
         };
 
@@ -669,9 +693,11 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
             updateCharts();
         }
 
+        // [수정됨] updatePanelContent 함수 (녹지 항목 업데이트 로직 추가)
         function updatePanelContent(index, modelKey) {
             const imgEl = document.getElementById(`modelImage${index}`);
             const titleEl = document.getElementById(`modelDescTitle${index}`);
+            const greeneryEl = document.getElementById(`modelDescGreenery${index}`); // 녹지 요소 선택
             const exteriorEl = document.getElementById(`modelDescExterior${index}`);
             const pavementEl = document.getElementById(`modelDescPavement${index}`);
             
@@ -681,13 +707,16 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
             if (descData && imgPath) {
                 imgEl.src = imgPath; 
                 titleEl.textContent = `모델 구성 (${dataNames[modelKey]})`;
+                // [수정됨] 하이픈 대신 빈 문자열('')' 사용
+                greeneryEl.textContent = descData.greenery || ''; // 녹지 데이터 업데이트
                 exteriorEl.textContent = descData.exterior;
                 pavementEl.textContent = descData.pavement;
             } else {
                 imgEl.src = 'https://placehold.co/600x400/1e293b/94a3b8?text=Image+Not+Found'; // 기본 이미지
                 titleEl.textContent = '모델 구성';
-                exteriorEl.textContent = '-';
-                pavementEl.textContent = '-';
+                greeneryEl.textContent = ''; // 녹지 리셋
+                exteriorEl.textContent = '-'; // [수정됨] 기존 하이픈 유지
+                pavementEl.textContent = '-'; // [수정됨] 기존 하이픈 유지
             }
         }
 
@@ -853,8 +882,8 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
                         y: { 
                             ticks: { color: textSecondaryColor }, 
                             grid: { color: 'rgba(71, 85, 105, 0.3)' },
-                            min: 0, // Y축 최소값 0
-                            max: metric === '온도' ? 50 : 100 // Y축 최대값 (온도 50, 습도 100)
+                            min: metric === '습도' ? 10 : 0, // [수정] 습도일 때 Y축 최소 10, 그 외 0
+                            max: metric === '온도' ? 50 : 80  // [수정] 온도일 때 50, 습도일 때 80
                         }
                     },
                     plugins: { legend: { labels: { color: textPrimaryColor } } }
@@ -864,27 +893,42 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
             csvChartInstances.push(newChart); // 배열에 추가
         }
 
-        // --- 시뮬레이터 섹션 (롤백됨) ---
+        // --- 시뮬레이터 섹션 ---
         
-        // [롤백] 'image' 속성 복원 및 img/ 경로 적용
+        // [수정됨] simulatorData: 요청하신 새 온도로 변경
         const simulatorData = {
-            '시멘트-아스팔트(물)': { temp: 35.89, image: 'img/wwo.png' },
-            '시멘트-아스팔트(일반)': { temp: 34.85, image: 'img/wwx.png' },
-            '시멘트-투수성 아스팔트': { temp: 28.19, image: 'img/wt.png' },
-            '대리석-아스팔트(물)': { temp: 38.49, image: 'img/dwo.png' },
-            '대리석-아스팔트(일반)': { temp: 37.45, image: 'img/dwx.png' },
-            '대리석-투수성 아스팔트': { temp: 30.79, image: 'img/dt.png' },
-            '유리-아스팔트(물)': { temp: 33.23, image: 'img/gwo.png' },
-            '유리-아스팔트(일반)': { temp: 32.19, image: 'img/gwx.png' },
-            '유리-투수성 아스팔트': { temp: 25.53, image: 'img/gt.png' },
-            '징크패널-아스팔트(물)': { temp: 36.77, image: 'img/jwo.png' },
-            '징크패널-아스팔트(일반)': { temp: 35.73, image: 'img/jwx.png' },
-            '징크패널-투수성 아스팔트': { temp: 29.07, image: 'img/jt.png' }
+            '시멘트-물 뿌린 아스팔트-없음': { temp: 28.08, image: 'img/wwo.png' },
+            '시멘트-물 뿌린 아스팔트)-호수': { temp: 26.08, image: 'img/wwo.png' },
+            '시멘트-아스팔트(일반)-없음': { temp: 28.92, image: 'img/wwx.png' },
+            '시멘트-아스팔트(일반)-호수': { temp: 26.92, image: 'img/wwx.png' },
+            '시멘트-투수성 아스팔트-없음': { temp: 25.02, image: 'img/wt.png' },
+            '시멘트-투수성 아스팔트-호수': { temp: 23.02, image: 'img/wt.png' },
+            
+            '대리석-물 뿌린 아스팔트-없음': { temp: 29.67, image: 'img/dwo.png' },
+            '대리석-물 뿌린 아스팔트-호수': { temp: 27.67, image: 'img/dwo.png' },
+            '대리석-아스팔트(일반)-없음': { temp: 30.67, image: 'img/dwx.png' },
+            '대리석-아스팔트(일반)-호수': { temp: 28.67, image: 'img/dwx.png' },
+            '대리석-투수성 아스팔트-없음': { temp: 26.72, image: 'img/dt.png' },
+            '대리석-투수성 아스팔트-호수': { temp: 24.72, image: 'img/dt.png' },
+            
+            '유리-물 뿌린 아스팔트-없음': { temp: 26.92, image: 'img/gwo.png' },
+            '유리-물 뿌린 아스팔트-호수': { temp: 24.92, image: 'img/gwo.png' }, // [수정됨] 쉼표 추가
+            '유리-아스팔트(일반)-없음': { temp: 27.9, image: 'img/gwx.png' },
+            '유리-아스팔트(일반)-호수': { temp: 25.9, image: 'img/gwx.png' },
+            '유리-투수성 아스팔트-없음': { temp: 24.0, image: 'img/gt.png' },
+            '유리-투수성 아스팔트-호수': { temp: 22.0, image: 'img/gt.png' },
+
+            '징크패널-물 뿌린 아스팔트-없음': { temp: 29.74, image: 'img/jwo.png' },
+            '징크패널-물 뿌린 아스팔트-호수': { temp: 27.74, image: 'img/jwo.png' },
+            '징크패널-아스팔트(일반)-없음': { temp: 30.64, image: 'img/jwx.png' },
+            '징크패널-아스팔트(일반)-호수': { temp: 28.64, image: 'img/jwx.png' },
+            '징크패널-투수성 아스팔트-없음': { temp: 26.74, image: 'img/jt.png' },
+            '징크패널-투수성 아스팔트-호수': { temp: 24.74, image: 'img/jt.png' }
         };
 
-        // [롤백] updateSimulator가 이미지를 그리도록 변경
+        // [이전 수정] updateSimulator가 3개의 드롭다운에서 값을 읽도록 변경
         function updateSimulator() {
-            const key = `${document.getElementById('option1').value}-${document.getElementById('option2').value}`;
+            const key = `${document.getElementById('option1').value}-${document.getElementById('option2').value}-${document.getElementById('option3').value}`;
             const data = simulatorData[key];
             if (!data) return;
 
@@ -921,22 +965,25 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
             }, 1000 / frameRate);
         }
 
+        // [이전 수정] 30.5도 이상을 기준으로 색상을 변경합니다.
         function updateTemperatureColor(element, temp) {
             let gradient;
-            if (temp < 28) gradient = 'linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(96, 165, 250, 0.2) 100%)';
-            else if (temp < 32) gradient = 'linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(52, 211, 153, 0.2) 100%)';
-            else if (temp < 36) gradient = 'linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(251, 191, 36, 0.2) 100%)';
-            else gradient = 'linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(248, 113, 113, 0.2) 100%)';
+            if (temp <= 26) { // 26도 이하: 진한 파란색
+                gradient = 'linear-gradient(135deg, rgba(59, 130, 246, 0.8) 0%, rgba(96, 165, 250, 0.8) 100%)';
+            } else if (temp < 30) { // 26초과 ~ 30미만: 녹색
+                gradient = 'linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(52, 211, 153, 0.2) 100%)';
+            } else if (temp < 30.5) { // 30이상 ~ 30.5미만: 주황색
+                gradient = 'linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(251, 191, 36, 0.2) 100%)';
+            } else { // 30.5도 이상: 진한 빨간색
+                gradient = 'linear-gradient(135deg, rgba(239, 68, 68, 0.8) 0%, rgba(248, 113, 113, 0.8) 100%)';
+            }
             element.style.background = gradient;
         }
-
-        // [삭제] 비교 모드 관련 변수/함수 제거
         
-        // [롤백] 갤러리 기능 복원
+        // [이전 수정] 갤러리 기능 (24개 아이템을 순환함)
         const galleryItems = Object.keys(simulatorData);
         let currentGalleryIndex = 0;
 
-        // [수정] 갤러리 클릭 이벤트 핸들러 (비교 모드 이미지도 포함)
         document.querySelectorAll('.display-image').forEach(img => img.addEventListener('click', (e) => {
             const altText = e.target.alt;
             const index = galleryItems.indexOf(altText);
@@ -966,7 +1013,9 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
             const key = galleryItems[currentGalleryIndex];
             const data = simulatorData[key];
             document.getElementById('galleryImage').src = data.image; // 이미지 경로 설정
-            document.getElementById('galleryTitle').textContent = key.replace('-', ' + ');
+            
+            // [이전 수정] 3개 변수 모두 표시되도록 .replace(/-/g, ' + ') 사용
+            document.getElementById('galleryTitle').textContent = key.replace(/-/g, ' + ');
             document.getElementById('galleryTemp').textContent = `${data.temp.toFixed(1)}°C`;
         }
         
@@ -988,21 +1037,11 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
             updatePanelContent(3, document.getElementById('data3Select').value);
             updateCharts();
             
-            // 시뮬레이터 초기화 (이미지)
+            // 시뮬레이터 초기화
             updateSimulator();
-            // [삭제] updateComparison(); 제거
         }
 
         window.addEventListener('DOMContentLoaded', initialize);
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
