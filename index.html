@@ -356,7 +356,7 @@
                         <div class="model-description-panel">
                             <div class="model-desc-title" id="modelDescTitle1">모델 구성</div>
                             <div class="model-desc-line">
-                                <span class="model-desc-label">녹지(20%)</span>
+                                <span class="model-desc-label">자연환경(20%)</span>
                                 <span id="modelDescGreenery1" class="model-desc-content"></span>
                             </div>
                             <div class="model-desc-line">
@@ -368,7 +368,7 @@
                                 <span id="modelDescPavement1" class="model-desc-content">-</span>
                             </div>
                             <p class="model-note">
-                                * 건물 외장재와 바닥재 종류에 따른 도시 온도 상세 분석을 위해, 도시 구성 요소의 비율(녹지 20%, 건물 외장재 40%, 바닥재 40%)을 통제변인으로 설정함.
+                                * 건물 외장재와 바닥재 종류에 따른 도시 온도 상세 분석을 위해, 도시 구성 요소의 비율(자연환경 20%, 건물 외장재 40%, 바닥재 40%)을 통제변인으로 설정함.
                             </p>
                         </div>
                     </div>
@@ -389,7 +389,7 @@
                         <div class="model-description-panel">
                             <div class="model-desc-title" id="modelDescTitle2">모델 구성</div>
                             <div class="model-desc-line">
-                                <span class="model-desc-label">녹지(20%)</span>
+                                <span class="model-desc-label">자연환경(20%)</span>
                                 <span id="modelDescGreenery2" class="model-desc-content"></span>
                             </div>
                             <div class="model-desc-line">
@@ -401,7 +401,7 @@
                                 <span id="modelDescPavement2" class="model-desc-content">-</span>
                             </div>
                             <p class="model-note">
-                                * 건물 외장재와 바닥재 종류에 따른 도시 온도 상세 분석을 위해, 도시 구성 요소의 비율(녹지 20%, 건물 외장재 40%, 바닥재 40%)을 통제변인으로 설정함.
+                                * 건물 외장재와 바닥재 종류에 따른 도시 온도 상세 분석을 위해, 도시 구성 요소의 비율(자연환경 20%, 건물 외장재 40%, 바닥재 40%)을 통제변인으로 설정함.
                             </p>
                         </div>
                     </div>
@@ -422,7 +422,7 @@
                         <div class="model-description-panel">
                             <div class="model-desc-title" id="modelDescTitle3">모델 구성</div>
                             <div class="model-desc-line">
-                                <span class="model-desc-label">녹지(20%)</span>
+                                <span class="model-desc-label">자연환경(20%)</span>
                                 <span id="modelDescGreenery3" class="model-desc-content"></span>
                             </div>
                             <div class="model-desc-line">
@@ -434,7 +434,7 @@
                                 <span id="modelDescPavement3" class="model-desc-content">-</span>
                             </div>
                             <p class="model-note">
-                                * 건물 외장재와 바닥재 종류에 따른 도시 온도 상세 분석을 위해, 도시 구성 요소의 비율(녹지 20%, 건물 외장재 40%, 바닥재 40%)을 통제변인으로 설정함.
+                                * 건물 외장재와 바닥재 종류에 따른 도시 온도 상세 분석을 위해, 도시 구성 요소의 비율(자연환경 20%, 건물 외장재 40%, 바닥재 40%)을 통제변인으로 설정함.
                             </p>
                         </div>
                     </div>
@@ -466,7 +466,7 @@
                     <div class="dropdown-section">
                         <label class="dropdown-label">바닥재</label>
                         <select class="dropdown" id="option2" onchange="updateSimulator()">
-                            <option value="물 있는 아스팔트">물 있는 아스팔트</option>
+                            <option value="물 뿌린 아스팔트">물 뿌린 아스팔트</option>
                             <option value="아스팔트(일반)">아스팔트(일반)</option>
                             <option value="투수성 아스팔트">투수성 아스팔트</option>
                         </select>
@@ -486,7 +486,7 @@
                     </div>
                 </div>
                 <div class="display-panel">
-                    <img id="displayImage" src="img/wwo.png" alt="시멘트-물 있는 아스팔트-호수" class="display-image">
+                    <img id="displayImage" src="img/wwo.png" alt="시멘트-물 뿌린 아스팔트-호수" class="display-image">
                 </div>
             </div>
 
@@ -499,52 +499,52 @@
                         <label class="selection-label">데이터 1</label>
                         <select class="selection-dropdown" id="mat_data1Select" onchange="mat_updateCharts()">
                             <option value="">선택 안 함</option>
-                            <option value="basedata" selected>기준 데이터</option>
-                            <option value="벽돌">벽돌</option>
+                            <option value="시멘트">시멘트</option>
                             <option value="대리석">대리석</option>
                             <option value="GLASS">유리</option>
-                            <option value="징크패널">징크패널</option>
+                            <option value="패널">패널</option>
                             <option value="물있는아스팔트">물 있는 아스팔트</option>
                             <option value="투수성아스팔트">투수성 아스팔트</option>
+                            <option value="아스팔트일반">일반 아스팔트</option>
                         </select>
                     </div>
                     <div class="selection-item">
                         <label class="selection-label">데이터 2</label>
                         <select class="selection-dropdown" id="mat_data2Select" onchange="mat_updateCharts()">
                             <option value="" selected>선택 안 함</option>
-                            <option value="basedata">기준 데이터</option>
-                            <option value="벽돌">벽돌</option>
+                            <option value="시멘트">시멘트</option>
                             <option value="대리석">대리석</option>
                             <option value="GLASS">유리</option>
-                            <option value="징크패널">징크패널</option>
+                            <option value="패널">패널</option>
                             <option value="물있는아스팔트">물 있는 아스팔트</option>
                             <option value="투수성아스팔트">투수성 아스팔트</option>
+                            <option value="아스팔트일반">일반 아스팔트</option>
                         </select>
                     </div>
                     <div class="selection-item">
                         <label class="selection-label">데이터 3</label>
                         <select class="selection-dropdown" id="mat_data3Select" onchange="mat_updateCharts()">
                             <option value="" selected>선택 안 함</option>
-                            <option value="basedata">기준 데이터</option>
-                            <option value="벽돌">벽돌</option>
+                            <option value="시멘트">시멘트</option>
                             <option value="대리석">대리석</option>
                             <option value="GLASS">유리</option>
-                            <option value="징크패널">징크패널</option>
+                            <option value="패널">패널</option>
                             <option value="물있는아스팔트">물 있는 아스팔트</option>
                             <option value="투수성아스팔트">투수성 아스팔트</option>
+                            <option value="아스팔트일반">일반 아스팔트</option>
                         </select>
                     </div>
                     <div class="selection-item">
                         <label class="selection-label">데이터 4</label>
                         <select class="selection-dropdown" id="mat_data4Select" onchange="mat_updateCharts()">
                             <option value="" selected>선택 안 함</option>
-                            <option value="basedata">기준 데이터</option>
-                            <option value="벽돌">벽돌</option>
+                            <option value="시멘트">시멘트</option>
                             <option value="대리석">대리석</option>
                             <option value="GLASS">유리</option>
-                            <option value="징크패널">징크패널</option>
+                            <option value="패널">패널</option>
                             <option value="물있는아스팔트">물 있는 아스팔트</option>
                             <option value="투수성아스팔트">투수성 아스팔트</option>
+                            <option value="아스팔트일반">일반 아스팔트</option>
                         </select>
                     </div>
                 </div>
@@ -552,7 +552,8 @@
 
             <div id="mat_statsTable" class="stats-table" style="display:none;">
                 <div class="stats-header">📊 통계 요약</div>
-                <div class="stats-content"></div> </div>
+                <div class="stats-content"></div>
+            </div>
 
             <div id="mat_chartsContainer"></div>
         </div>
@@ -744,7 +745,7 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
             'model3': {
                 greenery: '',
                 exterior: '유리 26.79%, 시멘트 25.64%, 패널 24.29%, 대리석 23.27%',
-                pavement: '투수성 아스팔트 38.79%, 일반 아스팔트 31.84%, 물 있는 아스팔트 29.37%'
+                pavement: '투수성 아스팔트 38.79%, 일반 아스팔트 31.84%, 물 뿌린 아스팔트 29.37%'
             }
         };
 
@@ -767,26 +768,26 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
         };
 
         const simulatorData = {
-            '시멘트-물 있는 아스팔트-없음': { temp: 28.08, image: 'img/wwo.png' },
-            '시멘트-물 있는 아스팔트-호수': { temp: 26.08, image: 'img/ww-2.png' },
+            '시멘트-물 뿌린 아스팔트-없음': { temp: 28.08, image: 'img/wwo.png' },
+            '시멘트-물 뿌린 아스팔트-호수': { temp: 26.08, image: 'img/ww-2.png' },
             '시멘트-아스팔트(일반)-없음': { temp: 28.92, image: 'img/wwx.png' },
             '시멘트-아스팔트(일반)-호수': { temp: 26.92, image: 'img/w-2.png' },
             '시멘트-투수성 아스팔트-없음': { temp: 25.02, image: 'img/wt.png' },
             '시멘트-투수성 아스팔트-호수': { temp: 23.02, image: 'img/wt-2.png' },
-            '대리석-물 있는 아스팔트-없음': { temp: 29.67, image: 'img/dwo.png' },
-            '대리석-물 있는 아스팔트-호수': { temp: 27.67, image: 'img/dw-2.png' },
+            '대리석-물 뿌린 아스팔트-없음': { temp: 29.67, image: 'img/dwo.png' },
+            '대리석-물 뿌린 아스팔트-호수': { temp: 27.67, image: 'img/dw-2.png' },
             '대리석-아스팔트(일반)-없음': { temp: 30.67, image: 'img/dwx.png' },
             '대리석-아스팔트(일반)-호수': { temp: 28.67, image: 'img/d-2.png' },
             '대리석-투수성 아스팔트-없음': { temp: 26.72, image: 'img/dt.png' },
             '대리석-투수성 아스팔트-호수': { temp: 24.72, image: 'img/dt-2.png' },
-            '유리-물 있는 아스팔트-없음': { temp: 26.92, image: 'img/gwo.png' },
-            '유리-물 있는 아스팔트-호수': { temp: 24.92, image: 'img/gw-2.png' },
+            '유리-물 뿌린 아스팔트-없음': { temp: 26.92, image: 'img/gwo.png' },
+            '유리-물 뿌린 아스팔트-호수': { temp: 24.92, image: 'img/gw-2.png' },
             '유리-아스팔트(일반)-없음': { temp: 27.9, image: 'img/gwx.png' },
             '유리-아스팔트(일반)-호수': { temp: 25.9, image: 'img/g-2.png' },
             '유리-투수성 아스팔트-없음': { temp: 24.0, image: 'img/gt.png' },
             '유리-투수성 아스팔트-호수': { temp: 22.0, image: 'img/gt-2.png' },
-            '징크패널-물 있는 아스팔트-없음': { temp: 29.74, image: 'img/jw-2.png' },
-            '징크패널-물 있는 아스팔트-호수': { temp: 27.74, image: 'img/jwo.png' },
+            '징크패널-물 뿌린 아스팔트-없음': { temp: 29.74, image: 'img/jw-2.png' },
+            '징크패널-물 뿌린 아스팔트-호수': { temp: 27.74, image: 'img/jwo.png' },
             '징크패널-아스팔트(일반)-없음': { temp: 30.64, image: 'img/jwx.png' },
             '징크패널-아스팔트(일반)-호수': { temp: 28.64, image: 'img/j-2.png' },
             '징크패널-투수성 아스팔트-없음': { temp: 26.74, image: 'img/jt.png' },
@@ -802,7 +803,6 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
         // 탭 3 (원본 재료) 데이터 (Roh.html에서 가져옴)
         // ==============================================
         
-        // 변수명 충돌을 피하기 위해 'mat_' 접두사 사용
         const mat_csvDataLibrary = {
             'basedata': `Time,H,T,,
 시간,값1,값2
@@ -854,7 +854,7 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
 오전 4:34:00,58,22
 오전 4:38:00,57,22
 오전 4:43:00,58,21.5`,
-            '벽돌': `00:00.0,34,37.25
+            '시멘트': `00:00.0,34,37.25
 04:00.4,35,35.25
 08:07.2,35,39
 12:18.6,35,38.88
@@ -1150,27 +1150,82 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
 오전 10:51:54,71.2,15.18
 오전 10:54:25,69.3,15.18
 오전 10:56:59,68,14.61
+`,
+            // [!!] '일반 아스팔트' 데이터 추가
+            '아스팔트일반': `
+오전 1:27:00,48,24.06
+오전 1:31:10,47,24.5
+오전 1:35:20,47,24.06
+오전 1:39:30,48,25.06
+오전 1:43:40,48,24.13
+오전 1:47:50,49,23.13
+오전 1:52:00,50,23.06
+오전 1:56:11,48,24.31
+오전 2:00:21,50,24.5
+오전 2:04:31,48,25.38
+오전 2:08:42,48,25.19
+오전 2:12:52,48,25.31
+오전 2:17:02,49,24.25
+오전 2:21:13,50,23.56
+오전 2:25:23,48,23.88
+오전 2:29:33,49,24.31
+오전 2:33:44,50,24.19
+오전 2:37:54,49,24.69
+오전 2:42:04,50,23.63
+오전 2:46:15,52,23.44
+오전 2:50:25,51,22.69
+오전 2:54:35,52,24.13
+오전 2:58:46,51,24.88
+오전 3:02:56,50,24.63
+오전 3:07:06,50,24.31
+오전 3:11:17,51,24.56
+오전 3:15:27,50,24.25
+오전 3:19:38,53,23.94
+오전 3:23:48,52,23.06
+오전 3:27:58,53,23.19
+오전 3:32:09,52,24.19
+오전 3:36:19,52,24.31
+오전 3:40:29,54,23.5
+오전 3:44:39,53,23.31
+오전 3:48:50,53,23.31
+오전 3:53:00,53,23.88
+오전 3:57:10,54,22.19
+오전 4:01:21,55,22.25
+오전 4:05:31,56,21.88
+오전 4:09:41,56,22.94
+오전 4:13:51,56,23.44
+오전 4:18:02,56,22.75
+오전 4:22:12,55,23.19
+오전 4:26:23,55,22.75
+오전 4:30:34,56,23.31
+오전 4:34:43,58,22
+오전 4:38:54,57,22
+오전 4:43:04,58,21.5
+
 `
         };
 
         const mat_dataColors = {
             'basedata': { border: 'rgba(255, 255, 255, 0.8)', bg: 'rgba(255, 255, 255, 0.1)' },
-            '벽돌': { border: 'rgba(239, 68, 68, 0.8)', bg: 'rgba(239, 68, 68, 0.2)' },
+            '시멘트': { border: 'rgba(239, 68, 68, 0.8)', bg: 'rgba(239, 68, 68, 0.2)' },
             '대리석': { border: 'rgba(245, 158, 11, 0.8)', bg: 'rgba(245, 158, 11, 0.2)' },
             'GLASS': { border: 'rgba(34, 211, 238, 0.8)', bg: 'rgba(34, 211, 238, 0.2)' },
             '징크패널': { border: 'rgba(168, 85, 247, 0.8)', bg: 'rgba(168, 85, 247, 0.2)' },
             '물있는아스팔트': { border: 'rgba(16, 185, 129, 0.8)', bg: 'rgba(16, 185, 129, 0.2)' },
-            '투수성아스팔트': { border: 'rgba(251, 191, 36, 0.8)', bg: 'rgba(251, 191, 36, 0.2)' }
+            '투수성아스팔트': { border: 'rgba(251, 191, 36, 0.8)', bg: 'rgba(251, 191, 36, 0.2)' },
+            // [!!] '일반 아스팔트' 색상 추가
+            '아스팔트일반': { border: 'rgba(156, 163, 175, 0.8)', bg: 'rgba(156, 163, 175, 0.2)' } // Grey
         };
 
         const mat_dataNames = {
-            'basedata': '기준 데이터',
-            '벽돌': '벽돌',
+            '시멘트': '시멘트',
             '대리석': '대리석',
             'GLASS': '유리',
             '징크패널': '징크패널',
             '물있는아스팔트': '물 있는 아스팔트',
-            '투수성아스팔트': '투수성 아스팔트'
+            '투수성아스팔트': '투수성 아스팔트',
+            // [!!] '일반 아스팔트' 이름 추가
+            '아스팔트일반': '일반 아스팔트'
         };
 
         // 탭 3 (재료) 용 변수
@@ -1230,7 +1285,6 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
             }
         }
 
-        // 탭 1용 CSV 파서 (Time,T,H)
         function parseCSV(csvText) {
             const lines = csvText.trim().replace(/\r/g, "").split('\n');
             const hasHeader = lines[0].toLowerCase().includes('time');
@@ -1251,13 +1305,11 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
             return { data, headers: ['시간', '온도', '습도'] };
         }
 
-        // 탭 1용 평균 계산
         function calculateAverage(data, key) {
             const values = data.map(row => parseFloat(row[key])).filter(v => !isNaN(v));
             return values.length > 0 ? values.reduce((a, b) => a + b, 0) / values.length : 0;
         }
 
-        // 탭 1용 데이터 길이 맞추기
         function stretchData(sourceArray, targetLength) {
             if (!sourceArray || sourceArray.length === 0) return new Array(targetLength).fill(null);
             if (sourceArray.length === targetLength) return sourceArray;
@@ -1287,7 +1339,6 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
             return stretched;
         }
 
-        // 탭 1용 차트 업데이트
         function updateCharts() {
             const selectedData = [];
             for (let i = 1; i <= 3; i++) {
@@ -1303,7 +1354,6 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
             renderCharts(selectedData);
         }
 
-        // 탭 1용 통계 테이블
         function updateStatsTable(selectedData) {
             const statsTable = document.getElementById('statsTable');
             const statsContent = statsTable.querySelector('.stats-content');
@@ -1330,7 +1380,6 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
             statsContent.innerHTML = tableHTML;
         }
 
-        // 탭 1용 차트 렌더링
         function renderCharts(selectedData) {
             const chartsContainer = document.getElementById('chartsContainer');
             
@@ -1345,7 +1394,6 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
             });
         }
 
-        // 탭 1용 차트 생성
         function createChart(metric, selectedData) {
             const style = getComputedStyle(document.documentElement);
             const textSecondaryColor = style.getPropertyValue('--text-secondary').trim();
@@ -1531,7 +1579,6 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
             const selectedData = [];
             
             for (let i = 1; i <= 4; i++) {
-                // 'mat_data' ID에서 읽어옴
                 const selectValue = document.getElementById(`mat_data${i}Select`).value;
                 if (selectValue && mat_parsedDataLibrary[selectValue]) {
                     selectedData.push({
@@ -1541,14 +1588,12 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
                 }
             }
             
-            // 'mat_' 함수들 호출
             mat_updateStatsTable(selectedData);
             mat_renderCharts(selectedData);
         }
 
         // 탭 3용 통계 테이블
         function mat_updateStatsTable(selectedData) {
-            // 'mat_statsTable' ID에 씀
             const statsTable = document.getElementById('mat_statsTable');
             const statsContent = statsTable.querySelector('.stats-content');
             
@@ -1579,7 +1624,6 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
 
         // 탭 3용 차트 렌더링
         function mat_renderCharts(selectedData) {
-            // 'mat_chartsContainer' ID에 씀
             const chartsContainer = document.getElementById('mat_chartsContainer');
             
             mat_csvChartInstances.forEach(chart => chart.destroy());
@@ -1607,7 +1651,6 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
             container.innerHTML = `<div class="chart-title">${metric === '온도' ? '🌡️' : '💧'} ${metric} 비교</div>`;
             const canvas = document.createElement('canvas');
             container.appendChild(canvas);
-            // 'mat_chartsContainer' ID에 추가
             document.getElementById('mat_chartsContainer').appendChild(container);
 
             const maxDataLength = Math.max(...selectedData.map(item => 
@@ -1619,10 +1662,10 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
             const datasets = selectedData.map(item => {
                 const values = item.data.data.map(r => parseFloat(r[metric])).filter(v => !isNaN(v));
                 const stretchedValues = mat_stretchData(values, maxDataLength);
-                const colors = mat_dataColors[item.key]; // 'mat_' 색상표 사용
+                const colors = mat_dataColors[item.key];
 
                 return {
-                    label: mat_dataNames[item.key], // 'mat_' 이름표 사용
+                    label: mat_dataNames[item.key],
                     data: stretchedValues,
                     borderColor: colors.border,
                     backgroundColor: colors.bg,
@@ -1653,7 +1696,7 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
                             ticks: { color: textSecondaryColor }, 
                             grid: { color: 'rgba(71, 85, 105, 0.3)' },
                             min: 0,
-                            max: metric === '온도' ? 50 : 100 // 재료 탭은 Y축 최대값 다름
+                            max: metric === '온도' ? 50 : 100
                         }
                     },
                     plugins: { 
@@ -1664,7 +1707,7 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
                 }
             });
 
-            mat_csvChartInstances.push(newChart); // 'mat_' 차트 배열에 추가
+            mat_csvChartInstances.push(newChart);
         }
 
 
@@ -1727,6 +1770,11 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
             
             // 탭 3 (재료) 데이터 파싱
             for (const key in mat_csvDataLibrary) {
+                // [!!] 비어있는 '아스팔트일반' 데이터는 파싱을 건너뛰도록 예외 처리
+                if (mat_csvDataLibrary[key].trim() === '') {
+                    console.warn(`Data for '${key}' is empty. Skipping parse.`);
+                    continue;
+                }
                 mat_parsedDataLibrary[key] = mat_parseCSV(mat_csvDataLibrary[key]);
                 mat_parsedDataLibrary[key].fileName = mat_dataNames[key];
             }
@@ -1748,4 +1796,3 @@ Time,City_Temperature_Predicted,City_Humidity_Predicted
     </script>
 </body>
 </html>
-
